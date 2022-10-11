@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+
+  {% block title %}Detalles del evento "{{ evento.Nombre| capitalize }}"{% endblock %}
+    {% block stylesheets %}
+        {{ parent() }}
+    {% endblock %}
+    {% block javascripts %}
+        {{ parent() }}
+    {% endblock %}
+
+{% block body %}
+    <div style="width: 1000px;height:500px;margin-top: 60px;
+margin-left:40px;border-style: solid;background:#f2e7c3;" %}>
+        <h2>"{{evento.Nombre| capitalize }}"</h2>
+        <p >{{evento.Tematica}}</p>
+        <footer style="color: #0a58ca;margin-top: 360px; padding-right: 2%; float: right ">publicado por</footer>
+    </div>
+{%  endblock %}
