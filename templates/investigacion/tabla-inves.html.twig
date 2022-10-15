@@ -7,9 +7,11 @@
     <link rel="stylesheet" href="{{ asset('css/dataTables.bootstrap5.min.css') }}">
 {% endblock %}
 {% block body %}
-
     <body id="page-top">
     <div id="wrapper">
+        {% block navegacion %}
+        {{ parent() }}
+        {% endblock %}
             <div class="container-fluid mt-5 pt-4">
                 <!-- Page Heading -->
                 <h1 class="h3 mb-2 text-gray-800">Tables</h1>
