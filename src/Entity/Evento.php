@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\EventoRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: EventoRepository::class)]
@@ -22,22 +23,35 @@ class Evento
     #[ORM\Column(length: 255)]
     private ?string $Tematica = null;
 
-    #[ORM\Column(nullable: true)]
-    private ?int $Cant_part = null;
 
     #[ORM\ManyToMany(targetEntity: Usuario::class, mappedBy: 'evento')]
     private Collection $usuarios;
 
-    #[ORM\OneToOne(inversedBy: 'evento', cascade: ['persist', 'remove'])]
-    private ?Cronograma $cronograma = null;
 
     #[ORM\ManyToMany(targetEntity: Investigacion::class, inversedBy: 'eventos')]
     private Collection $investigacion;
+
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    private ?\DateTimeInterface $fecha_ini = null;
+
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    private ?\DateTimeInterface $fecha_fin = null;
+
+    #[ORM\Column(type: Types::TIME_MUTABLE)]
+    private ?\DateTimeInterface $hora_inic = null;
+
+    #[ORM\Column(type: Types::TIME_MUTABLE)]
+    private ?\DateTimeInterface $hora_fin = null;
+
+    #[ORM\ManyToMany(targetEntity: Cronograma::class, inversedBy: 'eventos')]
+    private Collection $cronogramas;
+
 
     public function __construct()
     {
         $this->usuarios = new ArrayCollection();
         $this->investigacion = new ArrayCollection();
+        $this->cronogramas = new ArrayCollection();
     }
 
 
@@ -72,40 +86,6 @@ class Evento
         return $this;
     }
 
-    public function getCantPart(): ?int
-    {
-        return $this->Cant_part;
-    }
-
-    public function setCantPart(?int $Cant_part): self
-    {
-        $this->Cant_part = $Cant_part;
-
-        return $this;
-    }
-
-
-    public function getCronograma(): ?Cronograma
-    {
-        return $this->cronograma;
-    }
-
-    public function setCronograma(?Cronograma $cronograma): self
-    {
-        // unset the owning side of the relation if necessary
-        if ($cronograma === null && $this->cronograma !== null) {
-            $this->cronograma->setEvento(null);
-        }
-
-        // set the owning side of the relation if necessary
-        if ($cronograma !== null && $cronograma->getEvento() !== $this) {
-            $cronograma->setEvento($this);
-        }
-
-        $this->cronograma = $cronograma;
-
-        return $this;
-    }
 
     /**
      * @return Collection<int, Usuario>
@@ -154,6 +134,78 @@ class Evento
     public function removeInvestigacion(Investigacion $investigacion): self
     {
         $this->investigacion->removeElement($investigacion);
+
+        return $this;
+    }
+
+    public function getFechaIni(): ?\DateTimeInterface
+    {
+        return $this->fecha_ini;
+    }
+
+    public function setFechaIni(\DateTimeInterface $fecha_ini): self
+    {
+        $this->fecha_ini = $fecha_ini;
+
+        return $this;
+    }
+
+    public function getFechaFin(): ?\DateTimeInterface
+    {
+        return $this->fecha_fin;
+    }
+
+    public function setFechaFin(\DateTimeInterface $fecha_fin): self
+    {
+        $this->fecha_fin = $fecha_fin;
+
+        return $this;
+    }
+
+    public function getHoraInic(): ?\DateTimeInterface
+    {
+        return $this->hora_inic;
+    }
+
+    public function setHoraInic(\DateTimeInterface $hora_inic): self
+    {
+        $this->hora_inic = $hora_inic;
+
+        return $this;
+    }
+
+    public function getHoraFin(): ?\DateTimeInterface
+    {
+        return $this->hora_fin;
+    }
+
+    public function setHoraFin(\DateTimeInterface $hora_fin): self
+    {
+        $this->hora_fin = $hora_fin;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Cronograma>
+     */
+    public function getCronogramas(): Collection
+    {
+        return $this->cronogramas;
+    }
+
+    public function addCronograma(Cronograma $cronograma): self
+    {
+        if (!$this->cronogramas->contains($cronograma)) {
+            $this->cronogramas->add($cronograma);
+        }
+
+        return $this;
+    }
+
+    public function removeCronograma(Cronograma $cronograma): self
+    {
+        $this->cronogramas->removeElement($cronograma);
 
         return $this;
     }

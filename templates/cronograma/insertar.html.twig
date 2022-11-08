@@ -2,61 +2,41 @@
 {% block title %}Insertar Cronograma!{% endblock %}
 {% block stylesheets %}
     {{ parent() }}
-    <link rel="stylesheet" href="{{ asset('css/sb-admin-2.min.css') }}">
-{% endblock %}
-{% block javascripts %}
-    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('sb-admin/css/sb-admin-2.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/principal/crearusuario.css') }}">
 {% endblock %}
 {% block body %}
-    {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
-    <div class="container">
-                <div class="card o-hidden border-0 shadow-lg my-5">
-                    <div class="card-body p-0">
-                        <!-- Nested Row within Card Body -->
-                        <div class="row">
-                            <div class="col-lg-5 d-none d-lg-block"></div>
-                            <div class="col-lg-7">
-                                <div class="p-5">
-                                    <div class="text-center">
-                                        <h1 class="h4 text-gray-900 mb-4">Cree un evento!</h1>
-                                    </div>
-                                    {{ form_start(form,{attr:{'class':'user'}}) }}
-                                    <div class="form-group row">
-                                        <div class="form-group">
-                                            {{ form_widget(form.tema,{attr:{'placeholder':'Tema','type':'text','class':'form-control form-control-user'}}) }}
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        {{ form_widget(form.catedra,{attr:{'placeholder':'Catedra','type':'text','class':'form-control form-control-user'}}) }}
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <div class="col-sm-6 mb-3 mb-sm-0">
-                                        {{ form_widget(form.fecha_ini,{attr:{'class':' btn btn-block btn-user border'}}) }}
-                                    </div>
-                                    <div class="col-sm-6">
-                                        {{ form_widget(form.fecha_fin,{attr:{'placeholder':'Catedra','type':'password','class':'form-control form-control-user'}}) }}
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <div class="col-sm-6 mb-3 mb-sm-0">
-                                        {{ form_widget(form.hora_inic,{attr:{'class':' btn btn-block btn-user border'}}) }}
-                                    </div>
-                                    <div class="col-sm-6">
-                                        {{ form_widget(form.hora_final,{attr:{'placeholder':'Catedra','type':'password','class':'form-control form-control-user'}}) }}
-                                    </div>
-                                </div>
-
-                                {{ form_widget(form.Aceptar,{attr:{'class':'btn btn-primary btn-user btn-block'}}) }}
-                            </div>
-                            {{ form_end(form) }}
-                        </div>
+    <body class="align-middle">
+    <div class="card shadow" data-aos="fade-up" data-aos-duration="300" data-aos-delay="100"
+         style="height: 508.25px;width: 700px;margin-left: 350px;margin-top: 80px;">
+        <div class="card-body text-capitalize col-lg-10 m-5">
+                {{ form_start(form,{attr:{'class':'user'}}) }}
+                <h1 class="text-center mt-0">{{ controller_name |capitalize }}</h1>
+                <div class="text-start row justify-content-center">
+                    <div class="col-lg-12 mt-1 mb-1"><label class="form-label">Tema</label>
+                        {{ form_widget(form.tema)}}
                     </div>
-                </div>
-            </div>
+                    <div class="col-lg-12 mt-1 mb-1 "><label class="form-label">Catedra</label>
+                        {{ form_widget(form.catedra,{attr:{'class':'form-control','required':''}}) }}
+                       </div>
+                    <div class="col-lg-6 mt-1 mb-1"><label class="form-label">fecha de Inicio</label>
+                        {{ form_widget(form.fecha_ini,{attr:{'required':''}}) }}
+                        <label class="form-label">Hora de Inicio</label>
+                        {{ form_widget(form.hora_inic,{attr:{'required':''}}) }}
+                    </div>
+                    <div class="col-lg-6 mt-1 mb-1"><label class="form-label">Fecha de Cierre</label>
+                        {{ form_widget(form.fecha_fin,{attr:{'required':''}}) }}
+                        <label class="form-label">Hora de Cierre</label>
+                        {{ form(form.hora_final,{attr:{'required':''}}) }}
+                    </div>
+                    <div class="col-lg-6">
+                    {{ form_widget(form.Aceptar,{attr:{'class':'btn btn-primary'}}) }}
+                    </div>
+                    </div>
+                {{ form_end(form) }}
         </div>
-
     </div>
-
-    </div>
+    {% block javascripts %}
+        {{ parent() }}
+    {% endblock %}
 {% endblock %}

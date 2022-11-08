@@ -26,22 +26,16 @@ class InvestigacionController extends AbstractController
         $this->em = $em;
     }
 
-    #[Route('/investigacion', name: 'app_investigacion')]
-    public function index(): Response
-    {
-
-        return $this->render('investigacion/tabla-eventos.html.twig', [
-            'controller_name' => 'InvestigacionController'
-        ]);
-    }
-
-
     #[Route('/t_inves', name: 't_inves')]
     public function tablas(): Response
     {
+        $user = $this->getUser()->getUserIdentifier();
+        $usuario = $this->em->getRepository(Usuario::class)->findOneBy(['email'=>$user]);
+        $usu=$usuario;
         $inves = $this->em->getRepository(Investigacion::class)->findAll();
         return $this->render('investigacion/tabla-inves.html.twig', [
-            'inves' => $inves
+            'inves' => $inves,
+            'usuario' => $usu,
         ]);
     }
 
@@ -49,12 +43,13 @@ class InvestigacionController extends AbstractController
     public function invesDetallesId($id): Response
     {
 
-        $app = new InvestigacionService();
-        $mostrar = $app->MostrarDatostId($this->em, $id);
-        $mostrar = $mostrar[0];
+        $mostrar = $this->em->getRepository(Investigacion::class)->find($id);
+        $buscar=$this->em->getRepository(Investigacion::class)->BuscarUsuario($id);
+        $usuario=$this->em->getRepository(Usuario::class)->find($buscar[0]);
 
-        return $this->render('investigacion/detalles.html.twig', [
-            'investigacion' => $mostrar
+        return $this->render('investigacion/detallesI.html.twig', [
+            'investigacion' => $mostrar,
+            'usuario'=>$usuario,
         ]);
     }
 
@@ -70,10 +65,9 @@ class InvestigacionController extends AbstractController
     #[Route('/publicar_inves', name: 'public_inves')]
     public function new(Request $request, SluggerInterface $slugger): Response
     {
-        // just set up a fresh $task object (remove the example data)
-        /** @var \App\Entity\Usuario $user */
+
         $user = $this->getUser()->getUserIdentifier();
-        $usuario = $this->em->getRepository(Usuario::class)->findBy(['email'=>$user]);
+        $usuario = $this->em->getRepository(Usuario::class)->findOneBy(['email'=>$user]);
         $investigacion = new Investigacion();
         $form = $this->createForm(InvestigacionType::class, $investigacion);
         $form->handleRequest($request);
@@ -97,16 +91,52 @@ class InvestigacionController extends AbstractController
                 $investigacion->setArchivo($newFilename);
             }
             $investigacion = $form->getData();
-            $usuario[0]->addInvestigacion($investigacion);
+            $usuario->addInvestigacion($investigacion);
             $this->em->persist($investigacion);
             $this->em->flush();
-            return $this->redirectToRoute('home');
+            return $this->redirectToRoute('t_inves');
         }
 
         return $this->renderForm('investigacion/publicar-inves.html.twig', [
             'form' => $form,
         ]);
     }
+    #[Route('/editar_inves/{id}', name: 'edit_inves')]
+    public function Editar(Request $request, SluggerInterface $slugger,$id): Response
+    {
+
+       $investigacion=$this->em->getRepository(Investigacion::class)->findOneBy(['id'=>$id]);
+        $form = $this->createForm(InvestigacionType::class, $investigacion);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $brochureFile = $form->get('archivo')->getData();
+            if ($brochureFile) {
+                $originalFilename = pathinfo($brochureFile->getClientOriginalName(), PATHINFO_FILENAME);
+                // this is needed to safely include the file name as part of the URL
+                $safeFilename = $slugger->slug($originalFilename);
+                $newFilename = $safeFilename . '-' . uniqid() . '.' . $brochureFile->guessExtension();
+
+                // Move the file to the directory where brochures are stored
+                try {
+                    $brochureFile->move(
+                        $this->getParameter('brochures_directory'),
+                        $newFilename
+                    );
+                } catch (FileException $e) {
+                    throw new \Exception(" Ha ocurrido un error");
+                }
+                $investigacion->setArchivo($newFilename);
+            }
+            $investigacion = $form->getData();
+            $this->em->flush();
+            return $this->redirectToRoute('t_inves');
+        }
+
+        return $this->renderForm('investigacion/publicar-inves.html.twig', [
+            'form' => $form,
+        ]);
+    }
+
     #[Route('/evaluar_inve/{id}/{q}',name:'eva_inve')]
     public function DarEvaluacion($id,String $q){
         $app=$this->em->getRepository(Investigacion::class)->find($id);

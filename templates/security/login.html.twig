@@ -2,63 +2,65 @@
 
 {% block title %}Log in!{% endblock %}
 {% block stylesheets %}
-    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('bootstrap/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/login.css') }}">
 {% endblock %}
 {% block body %}
-    <aside class="col-sm-4" style="position: relative; left: 300px"><img src="{{ asset('img/logouci.png') }}" alt="Imagen no encontrada"></aside>
+     <aside class="col-sm-4" style="position: relative; left: 300px"><img src="{{ asset('img/logouci.png') }}"
+                                                                         alt="Imagen no encontrada"></aside>
     <div class="container col-lg-5 col-sm-7">
-        <div class="card o-hidden border-0 shadow-lg my-5">
-            <div class="card-body p-0">
-                <!-- Nested Row within Card Body -->
-                <div class="row">
-                    <div class="col-lg-5 d-none d-lg-block"></div>
-                    <div class="p-5">
-                        <main class="form-signin w-100 m-auto">
-                            <form method="post">
-                                {% if error %}
-                                    <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-                                {% endif %}
+        <div class="section">
+            <div class="container">
+                <div class="row full-height justify-content-center">
+                    <div class="col-12 text-center align-self-center py-5">
+                        <div class="section pb-5 pt-5 pt-sm-2 text-center">
+                            <div class="card-3d-wrap mx-auto col-sm-7">
+                                <div class="card-3d-wrapper">
+                                    <div class="card-front">
+                                        <form method="post">
+                                            <div class="center-wrap">
+                                                <div class="section text-center">
+                                                    {% if error %}
+                                                        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                                                    {% endif %}
+                                                    <h4 class="mb-4 pb-3">Inicio de Sesion</h4>
+                                                    <div class="form-floating form-group">
+                                                        <input type="email" value="{{ last_username }}" name="email"
+                                                               class="form-style"
+                                                               id="inputEmail" placeholder="Su Email"
+                                                               autocomplete="username"
+                                                               required
+                                                               autofocus>
+                                                        <i class="input-icon uil uil-at"></i>
+                                                    </div>
+                                                    <div class="form-floating form-group mt-2 ">
+                                                        <input type="password" class="form-style" name="password"
+                                                               id="inputPassword"
+                                                               placeholder="Contraseña"
+                                                               autocomplete="current-password" required>
+                                                        <i class="input-icon uil uil-lock-alt"></i>
+                                                    </div>
 
-                                {% if app.user %}
-                                    <div class="mb-3">
-                                        You are logged in as {{ app.user.userIdentifier }}, <a
-                                                href="{{ path('app_logout') }}">Logout</a>
+                                                    <input type="hidden" name="_csrf_token"
+                                                           value="{{ csrf_token('authenticate') }}">
+                                                    <button class="w-100 btn btn-lg btn-primary mt-4" type="submit">Iniciar
+                                                        Sesion
+                                                    </button>
+                                                    <p class="mb-0 mt-4 text-center"><a href="#0" class="link">Ha olvidado su contraseña?</a></p>
+                                                    <p class="mb-0 mt-2 text-center"><a href="{{ path('crear_usuario') }}" class="link">Desea Registrarse?</a></p>
+
+                                                    <p class="mt-4 mb-3 text-muted" style="text-align: center">&copy;
+                                                        2017–2022</p>
+                                                </div>
+                                            </div>
+                                        </form>
                                     </div>
-                                {% endif %}
-
-                                <h1 class="h3 mb-3 fw-normal" style="text-align: center">Inicio de Sesion</h1>
-
-                                <div class="form-floating">
-                                    <input type="email" value="{{ last_username }}" name="email" class="form-control"
-                                           id="inputEmail" placeholder="name@example.com" autocomplete="username"
-                                           required
-                                           autofocus>
-                                    <label for="inputEmail">Email</label>
                                 </div>
-                                <div class="form-floating">
-                                    <input type="password" class="form-control" name="password" id="inputPassword"
-                                           placeholder="Password"
-                                           autocomplete="current-password" required>
-                                    <label for="inputPassword">Password</label>
-                                </div>
-
-                                <div class="checkbox mb-3">
-                                    <label class="ms-5 ps-5">
-                                        <input type="checkbox" name="_remember_me"> Remember me</a>
-                                    </label>
-                                </div>
-                                <input type="hidden" name="_csrf_token"
-                                       value="{{ csrf_token('authenticate') }}">
-                                <button class="w-100 btn btn-lg btn-primary" type="submit">Iniciar Sesion</button>
-                                <a class="ms-5 ps-5" href="{{ path('crear_usuario') }}">Desea registrarse?</a>
-                                <p class="mt-5 mb-3 text-muted" style="text-align: center">&copy; 2017–2022</p>
-                            </form>
-                        </main>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
 {% endblock %}

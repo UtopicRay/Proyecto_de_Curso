@@ -1,0 +1,132 @@
+{% extends 'base.html.twig' %}
+
+  {% block title %}Detalles de la investigacion "{{ investigacion.Titulo| capitalize }}"{% endblock %}
+    {% block stylesheets %}
+        <link rel="stylesheet" href="{{ asset('bootstrap/css/bootstrap.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('bootstrap/css/fontawesome.css') }}">
+        <link rel="stylesheet" href="{{ asset('sb-admin/css/sb-admin-2.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/principal/invento.css') }}" media="screen">
+        <link rel="stylesheet" href="{{ asset('css/principal/style.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/sidebars.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/personal.css') }}">
+    {% endblock %}
+{% block body %}
+    {% block navegacion %}
+    {{ parent()}}
+    {% endblock %}
+    <!-- Demo header-->
+    <section class="py-5 header">
+        <div class="container py-4">
+            <header class="text-center mb-5 pb-5 text-white">
+                <h1 class="display-4">Perfil de Usuario</h1>
+                <p class="font-italic">
+                    <a class="text-white" href="">
+                        <u></u>
+                    </a>
+                </p>
+            </header>
+
+
+            <div class="row">
+                <div class="col-md-3">
+                    <!-- Tabs nav -->
+                    <div class="nav flex-column nav-pills nav-pills-custom" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                        <a class="nav-link mb-3 p-3 shadow active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">
+                            <i class="fa fa-user-circle-o mr-2"></i>
+                            <span class="font-weight-bold small text-uppercase">Información Personal</span></a>
+
+                        <a class="nav-link mb-3 p-3 shadow" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">
+                            <i class="fa fa-calendar-minus-o mr-2"></i>
+                            <span class="font-weight-bold small text-uppercase">Investigaciones Presentadas</span></a>
+
+                        <a class="nav-link mb-3 p-3 shadow" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">
+                            <i class="fa fa-star mr-2"></i>
+                            <span class="font-weight-bold small text-uppercase">Eventos Participados</span></a>
+                        {% if app.user.email== usuario.email %}
+                        <a class="nav-link mb-3 p-3 shadow" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">
+                            <i class="fa fa-check mr-2"></i>
+                            <span class="font-weight-bold small text-uppercase">Modificaciones</span></a>
+                        {% endif %}
+                    </div>
+                </div>
+
+
+                <div class="col-md-9">
+                    <!-- Tabs content -->
+                    <div class="tab-content" id="v-pills-tabContent">
+                        <div class="tab-pane fade shadow rounded bg-white show active p-5" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+
+                            <h3 class="font-italic mb-4">Información Personal</h3>
+                            <hr>
+                            <div class="row">
+                                <div class="col-lg-8">
+                            <h4 class="font-italic mb-4"> Nombre y Apellido: {{ usuario. Nombre }} {{ usuario.Apellido }}</h4>
+                            <h4 class="font-italic mb-4"> Correo Electronico: {{ usuario.email }} </h4>
+                            <h4 class="font-italic mb-4"> Nombre del usuario: {{ usuario.Nombreusuario}}</h4>
+                            <h4 class="font-italic mb-4"> Rol del Usuario: {{ usuario.roles[0] }}</h4>
+                            </div>
+                                <div class="col-lg-4">
+                                    <img id="img" src="{{ asset('img/gamer.png') }}" alt="imagen no encontrada">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tab-pane fade shadow rounded bg-white p-5" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+                            <h4 class="font-italic mb-4">Investigaciones Presentadas</h4>
+                            <hr>
+                            {% for invests in invest %}
+                                <h5 id="investigacion" class="font-italic text-muted mb-3"><a href="{{ path('invesId',{ id:invests.id }) }}">{{ invests.Titulo }}</a></h5>
+                            {% endfor %}
+                        </div>
+
+                        <div class="tab-pane fade shadow rounded bg-white p-5" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
+                            <h4 class="font-italic mb-4">Eventos Participados</h4>
+                            <p class="font-italic text-muted mb-2">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                        </div>
+
+                        <div class="tab-pane fade shadow rounded bg-white p-5" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">
+                            <h4 class="font-italic mb-4">Modificaciones</h4>
+                            <hr>
+                            <div class="row">
+                            <div class="col-lg-6">
+                                <a onclick="eliminarUsuario({{ usuario.id }})" class="btn btn-danger btn-icon-split">
+                                        <span class="icon text-white-50">
+                                            <i class="fas fa-trash"></i>
+                                        </span>
+                                    <span class="text">Eliminar</span>
+                                </a>
+                            </div>
+                            <div class="col-lg-6">
+                                <a href="{{ path('edit_usuario',{id:usuario.id}) }}" class="btn btn-info btn-icon-split">
+                                        <span class="icon text-white-50">
+                                            <i class="fas fa-info-circle"></i>
+                                        </span>
+                                    <span class="text">Editar</span>
+                                </a>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    {% block Modal %}
+        {{ parent() }}
+        {% endblock %}
+    {% block footer %}
+        {{ parent() }}
+        {% endblock %}
+    {% block javascripts %}
+        <script src="{{ asset('js/jquery-3.6.0.min.js') }}"></script>
+        <script src="{{ asset('js/jquery.easing.min.js') }}"></script>
+        <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
+        <script src="{{ asset('js/scriptusuario.js') }}"></script>
+        <script src="{{ asset('js/sb-admin-2.min.js') }}"></script>
+        <script src="{{ asset('js/all.js') }}"></script>
+        <script src="{{ asset('js/fontawesome.js') }}"></script>
+        <script src="{{ asset('js/sidebars.js') }}"></script>
+        <script src="{{ asset('js/dropdown.js')}}"></script>
+        <script src="{{ asset('js/scriptusuario.js') }}"></script>
+    {% endblock %}
+{% endblock %}

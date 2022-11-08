@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\CronogramaRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -33,10 +35,13 @@ class Cronograma
     #[ORM\Column(type: Types::TIME_MUTABLE)]
     private ?\DateTimeInterface $hora_final = null;
 
-    #[ORM\OneToOne(mappedBy: 'cronograma', cascade: ['persist', 'remove'])]
-    private ?Evento $evento = null;
+    #[ORM\ManyToMany(targetEntity: Evento::class, mappedBy: 'cronogramas')]
+    private Collection $eventos;
 
-
+    public function __construct()
+    {
+        $this->eventos = new ArrayCollection();
+    }
 
 
     public function getId(): ?int
@@ -118,26 +123,33 @@ class Cronograma
         return $this;
     }
 
-    public function getEvento(): ?Evento
+    /**
+     * @return Collection<int, Evento>
+     */
+    public function getEventos(): Collection
     {
-        return $this->evento;
+        return $this->eventos;
     }
 
-    public function setEvento(?Evento $evento): self
+    public function addEvento(Evento $evento): self
     {
-        // unset the owning side of the relation if necessary
-        if ($evento === null && $this->evento !== null) {
-            $this->evento->setCronograma(null);
+        if (!$this->eventos->contains($evento)) {
+            $this->eventos->add($evento);
+            $evento->addCronograma($this);
         }
-
-        // set the owning side of the relation if necessary
-        if ($evento !== null && $evento->getCronograma() !== $this) {
-            $evento->setCronograma($this);
-        }
-
-        $this->evento = $evento;
 
         return $this;
     }
+
+    public function removeEvento(Evento $evento): self
+    {
+        if ($this->eventos->removeElement($evento)) {
+            $evento->removeCronograma($this);
+        }
+
+        return $this;
+    }
+
+
 
 }

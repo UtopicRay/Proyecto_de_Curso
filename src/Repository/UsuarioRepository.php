@@ -55,7 +55,15 @@ class UsuarioRepository extends ServiceEntityRepository implements PasswordUpgra
 
         $this->add($user, true);
     }
-
+    public function BuscarInvestigacion($id)
+    {
+        return $this->getEntityManager()->createQuery('Select investigacion.id 
+       from App:Usuario usuario 
+       Join usuario.investigacion investigacion
+       where usuario.id=:id')
+            ->setParameter('id', $id)
+            ->getResult();
+    }
 //    /**
 //     * @return Usuario[] Returns an array of Usuario objects
 //     */

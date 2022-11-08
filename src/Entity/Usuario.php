@@ -12,6 +12,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 #[ORM\Entity(repositoryClass: UsuarioRepository::class)]
 class Usuario implements UserInterface, PasswordAuthenticatedUserInterface
 {
+   const hola=['Administrador'=>'ROLE_ADMIN','Jurado'=>'ROLE_JURADO'];
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]

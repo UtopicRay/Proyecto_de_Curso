@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello CronogramaController!{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+{% block body %}
+    {%block navegacion %}
+    {{ parent()}}
+    {% endblock %}
+    <div class="row">
+    {% for cronogramas in cronograma %}
+    <div class="col-lg-4">
+        <div class="card shadow-sm">
+            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg"
+                 role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false">
+                <title></title>
+                <rect width="100%" height="100%" fill="#55595c"/>
+                <text x="50%" y="50%" fill="#eceeef" dy=".3em">{{ cronogramas.tema }}</text>
+            </svg>
+            <div class="card-body">
+                <h5>Catedra: {{ cronogramas.catedra }}</h5>
+                <h6 class="text-muted">fecha de inicio: {{ cronogramas.Fechaini | format_date()  }} {{ cronogramas.Horainic | format_time() }}</h6>
+                <h6 class="text-muted">fecha de cierre: {{ cronogramas.Fechafin | format_date()  }} {{ cronogramas.Horafinal | format_time() }}</h6>
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-sm btn-info btn-outline-secondary"><a class="text-white" href="{{ path('edit_cronograma',{id:cronogramas.id}) }}"><span class="icon text-white">
+                                            <i class="fas fa-info-circle"></i>
+                                        </span>
+                                <span class="text">Editar</span></a></button>
+                        <button type="button" class="btn btn-sm btn-success btn-outline-secondary"><a class="text-white" href="#"><span class="icon text-white">
+                                            <i class="fas fa-info-circle"></i>
+                                        </span>
+                                <span class="text">Añadir a un evento</span></a></button>
+                        <button onclick="eliminarCronograma({{ cronogramas.id }})" type="button" class="btn btn-sm btn-danger btn-outline-secondary"><a class="text-white"> <span class="icon text-white">
+                                            <i class="fas fa-trash"></i>
+                                        </span>
+                            <span class="text">Eliminar</span></a></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endfor %}
+    </div>
+    <div class="navigation">
+        {{ knp_pagination_render(cronograma ) }}
+    </div>
+    <br>
+    {% block Modal %}
+    {{ parent()}}
+    {% endblock %}
+     {% block footer %}
+     {{ parent()}}
+     {% endblock %}
+    {% block javascripts %}
+    {{ parent()}}
+        <script src="{{ asset('js/scriptusuario.js') }}"></script>
+    {% endblock %}
+{% endblock %}

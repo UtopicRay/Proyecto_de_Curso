@@ -18,11 +18,8 @@ public function MostrarDatos(EntityManagerInterface $em):array
 
     public function MostrarDatostId(EntityManagerInterface $em, $id)
     {
-        $app=$em->createQuery('select investigacion 
-       from App:Investigacion investigacion 
-       where investigacion.id=:id')
-            ->setParameter('id',$id)
-            ->getArrayResult();
+
+        $app=$em->getRepository(Investigacion::class)->mostrarInvest($id);
         return $app;
     }
 

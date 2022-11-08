@@ -10,9 +10,10 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: InvestigacionRepository::class)]
 class Investigacion
 {
+
     const option=['Facultad 1'=>'1','Facultad 2'=>'2','Facultad 3'=>'3','Facultad 4'=>'4','Facultad 5'=>'5','FTE'=>'6','No pertenece a una facultad'=>'7'];
     const catedras=['Estudios del pensamiento y la obra de “Fidel Castro Ruz'=>'Estudios del pensamiento y la obra de “Fidel Castro Ruz','Julio Antonio Mella'=>'Julio Antonio Mella','Antonio Maceo y Grajales'=>'Antonio Maceo y Grajales'
-    ,'Ernesto “Che” Guevara'=>'Ernesto “Che” Guevara','Remberto Fernández González'=>'Remberto Fernández González','“Pensamiento Bolivariano”'=>'“Pensamiento Bolivariano”',
+    ,'Ernesto “Che” Guevara'=>'Ernesto “Che” Guevara','Remberto Fernández González'=>'Remberto Fernández González','Pensamiento Bolivariano'=>'Pensamiento Bolivariano',
      'Vilma Espín Guillois'=>'Vilma Espín Guillois','Rosa Elene Simeón Negrín'=>'Rosa Elene Simeón Negrín','José Martí Pérez'=>'José Martí Pérez'];
     #[ORM\Id]
     #[ORM\GeneratedValue]

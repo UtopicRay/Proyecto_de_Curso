@@ -1,0 +1,164 @@
+{% extends 'base.html.twig' %}
+
+  {% block title %}Detalles de la investigacion "{{ investigacion.Titulo| capitalize }}"{% endblock %}
+    {% block stylesheets %}
+        {{ parent() }}
+        <link rel="stylesheet" href="{{ asset('css/accordions.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/otro.css') }}">
+    {% endblock %}
+{% block body %}
+    <body style="background-color: #fff">
+    {% block navegacion %}
+        {{ parent() }}
+    {% endblock %}
+
+    <div id="cv" class="instaFade">
+        <div class="mainDetails">
+            <div id="headshot" class="quickFade">
+                <img class="rounded-circle" src="{{ asset('img/Microsoft-Word-Logotipo-2013-2019.jpg') }}" alt="Imagen no encontrada">
+            </div>
+
+            <div id="name">
+                <h2 class="quickFade delayThree">{{ investigacion.Titulo }}</h2>
+                <p> publicado por el usuario "{{ usuario.Nombreusuario | capitalize }}"</p>
+            </div>
+            <div class="clear"></div>
+        </div>
+
+        <div id="mainArea" class="quickFade delayFive">
+            <section>
+                <article>
+                    <div class="sectionTitle">
+                        <h1>Descripcion del Trabajo</h1>
+                    </div>
+
+                    <div class="sectionContent">
+                        <p>{{ investigacion.descripcion }}.</p>
+                    </div>
+                </article>
+                <div class="clear"></div>
+            </section>
+
+
+            <section>
+                <div class="sectionTitle">
+                    <h1>Catedra</h1>
+                </div>
+
+
+                <div class="sectionContent">
+                    <article>
+                        <h2 id="Catedra" >{{ investigacion.Catedra}}</h2>
+                        <div class="subDetails">
+                            <p id="residencia"></p>
+                        </div>
+                        <p id="cambio">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ultricies massa et erat luctus
+                            hendrerit. Curabitur non consequat enim. Vestibulum bibendum mattis dignissim. Proin id
+                            sapien quis libero interdum porttitor.</p>
+                    </article>
+                </div>
+                <div class="clear"></div>
+            </section>
+            <section>
+                <div class="sectionTitle">
+                    <h1>Archivo</h1>
+                </div>
+
+                <div class="sectionContent">
+                    <article>
+                        <h2>Descargar Investigacion</h2>
+                        <p><a href="{{ asset('uploads/'~investigacion.archivo) }}">{{ investigacion.archivo }}</a></p>
+                    </article>
+                </div>
+                <div class="clear"></div>
+            </section>
+                <section>
+                    <div class="sectionTitle">
+                        <h1>Evaluacion</h1>
+                    </div>
+                    <div class="sectionContent">
+                        <article>
+                            {% if investigacion.puntuacion!=null %}
+                            <h2 >{{ investigacion.puntuacion }}</h2>
+                            {% else%}
+                                <h2>Investigacion no evaluada</h2>
+                            {% endif %}
+                        </article>
+                        <article>
+                                {% if is_granted('ROLE_JURADO')%}
+                                    {% if investigacion.puntuacion==null %}
+                                    <div class="m-auto p-2 container-fluid">
+                                        <button id="evaluar"> Dar evaluacion</button>
+                                        <br>
+                                        <div id="escondido">
+                                            <select id="Premio" class="my-2 p-1">
+                                                <option> Relevante</option>
+                                                <option> Destacado</option>
+                                                <option> Mencion</option>
+                                                <option> Sin Premio</option>
+                                            </select>
+                                            <br>
+                                            <button id="Subir" onclick="Evaluar({{ investigacion.id }},o)"
+                                                    type="submit">
+                                                Evaluar
+                                            </button>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            {% endif %}
+                        </article>
+                    </div>
+                    <div class="clear"></div>
+                </section>
+            {% if app.user.email== usuario.email %}
+            <section>
+                <div class="sectionTitle">
+                    <h1>Acciones</h1>
+                </div>
+                <article>
+                    <div class="sectionContent row">
+                        <div class="col-lg-6">
+                            <a onclick="eliminarInvestigacion({{ investigacion.id }})" class="btn btn-danger btn-icon-split">
+                                        <span class="icon text-white-50">
+                                            <i class="fas fa-trash"></i>
+                                        </span>
+                                <span class="text">Eliminar</span>
+                            </a>
+                        </div>
+                        <div class="col-lg-6">
+                            <a href="{{ path('edit_inves',{id:investigacion.id}) }}" class="btn btn-info btn-icon-split">
+                                        <span class="icon text-white-50">
+                                            <i class="fas fa-info-circle"></i>
+                                        </span>
+                                <span class="text">Editar</span>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+            </section>
+{% endif %}
+        </div>
+        <div class="clear"></div>
+
+    </div>
+
+    <br>
+    {% block Modal %}
+        {{ parent() }}
+    {% endblock %}
+    {% block footer %}
+        {{ parent() }}
+    {% endblock %}
+    {% block javascripts %}
+        <script src="{{ asset('js/jquery-3.6.0.min.js') }}"></script>
+        <script src="{{ asset('bootstrap/js/bootstrap.js') }}"></script>
+        <script src="{{ asset('bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+        <script src="{{ asset('js/jquery.easing.min.js') }}"></script>
+        <script src="{{ asset('js/accordions.js') }}"></script>
+        <script src="{{ asset( 'js/sidebars.js') }}"></script>
+        <script src="{{ asset('js/dropdown.js') }}"></script>
+        <script src="{{ asset('js/Evaluacion.js') }}"></script>
+        <script src="{{ asset('js/scripts.js') }}"></script>
+    {% endblock %}
+    </body>
+{% endblock %}

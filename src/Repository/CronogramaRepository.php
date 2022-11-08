@@ -38,7 +38,10 @@ class CronogramaRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
-
+public function ObtenerDQL(){
+        $this->getEntityManager()->createQuery('Select cronograma.tema, cronograma.fecha_ini,cronograma.catedra,cronograma.fecha_fin,cronograma.hora_inic,cronograma.hora_final 
+        from App:Cronograma Order by cronograma.id DESC');
+}
 //    /**
 //     * @return Cronograma[] Returns an array of Cronograma objects
 //     */
