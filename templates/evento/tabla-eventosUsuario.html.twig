@@ -44,7 +44,7 @@
                             {% for eve in eventos %}
                                 <tr>
                                     <td>{{ eve.id }}</td>
-                                    <td><a href="{{ path('aña_eventCF',{ id:cronograma.id,ide:eve.id }) }}">{{ eve.Nombre }}</a></td>
+                                    <td><a href="{{ path('aña_eventUsu',{ide:eve.id }) }}">{{ eve.Nombre }}</a></td>
                                     <td>{{ eve.Tematica }}</td>
                                         <td>{{ eve.fechaini| format_date() }} {{ eve.horainic| format_time() }}</td>
                                     <td>{{ eve.fechafin| format_date() }} {{ eve.horafin| format_time() }}</td>

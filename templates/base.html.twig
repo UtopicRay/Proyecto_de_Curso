@@ -38,39 +38,58 @@
                 <div>
                     <a href="{{ path('home') }}" class="nav-menu-item"><i class="fas fa-home me-3"></i>Home</a>
                     <div class="dropdown">
-                    <a href="#" class="nav-menu-item" data-toggle="dropdown" style="padding: 18px;padding-left: 32px;"><i class="fas fa-search me-3"></i>Eventos<i class="icon-arrow text-black" style="padding: 15px"></i></a>
+                        <a href="#" class="nav-menu-item" data-toggle="dropdown"
+                           style="padding: 18px;padding-left: 32px;"><i class="fas fa-search me-3"></i>Eventos<i
+                                    class="icon-arrow text-black" style="padding: 15px"></i></a>
                         <ul class="dropdown-menu">
-                            <li><a href="{{ path('t_evento') }}" class="nav-menu-item" >Eventos en Curso</a></li>
-                            {%if is_granted('ROLE_ADMIN') %}
-                            <li><a  href="{{ path('public_evento') }}" class="nav-menu-item dropdown-item">Publicar Evento</a></li>
-                        {% endif %}
+                            <li><a href="{{ path('t_eventoAc') }}" class="nav-menu-item">Eventos en Curso</a></li>
+                            <li><a href="{{ path('Mit_event') }}" class="nav-menu-item">Eventos Participados</a></li>
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <li><a href="{{ path('t_evento') }}" class="nav-menu-item">Listado de Evento</a></li>
+                                <li><a href="{{ path('public_evento') }}" class="nav-menu-item dropdown-item">Publicar
+                                        Evento</a></li>
+                            {% endif %}
                         </ul>
                     </div>
-                        <div class="dropdown">
-                            <a class="  nav-menu-item" href="#" data-toggle="dropdown" style="padding: 18px;padding-left: 32px;"> <i class="fab fa-product-hunt me-3"></i>Investigaciones <i class="icon-arrow text-black"style="padding: 15px"></i></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="{{ path('t_inves') }}" class="nav-menu-item" >Investigaciones presentadas</a></li>
-                                <li><a  href="{{ path('public_inves') }}" class="nav-menu-item dropdown-item">Publicar Investigacion</a></li>
-                            </ul>
-                        </div>
                     <div class="dropdown">
-                        <a class="  nav-menu-item" href="#" data-toggle="dropdown" style="padding: 18px;padding-left: 32px;"><i class="fas fa-wrench me-3"></i>Cronogrma <i class="icon-arrow text-black"style="padding: 15px"></i></a>
+                        <a class="  nav-menu-item" href="#" data-toggle="dropdown"
+                           style="padding: 18px; padding-left: 32px;"> <i class="fab fa-product-hunt me-3"></i>Investigaciones
+                            <i class="icon-arrow text-black" style="padding: 15px"></i></a>
                         <ul class="dropdown-menu">
-                            <li><a href="{{ path('t_cronograma') }}" class="nav-menu-item" >Cronograma de actividades</a></li>
+                            <li><a href="{{ path('t_inves') }}" class="nav-menu-item">Investigaciones presentadas</a>
+                            </li>
+                            <li><a href="{{ path('public_inves') }}" class="nav-menu-item dropdown-item">Publicar
+                                    Investigacion</a></li>
+                            <li><a href="{{ path('Mit_inves') }}" class="nav-menu-item dropdown-item">Mis Investigaciones</a></li>
+                        </ul>
+                    </div>
+                    <div class="dropdown">
+                        <a class="  nav-menu-item" href="#" data-toggle="dropdown"
+                           style="padding: 18px;padding-left: 32px;"><i class="fas fa-wrench me-3"></i>Cronogrma <i
+                                    class="icon-arrow text-black" style="padding: 15px"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="{{ path('t_cronograma') }}" class="nav-menu-item">Cronograma de actividades</a>
+                            </li>
                             {% if is_granted('ROLE_ADMIN') %}
-                            <li><a  href="{{ path('public_cronograma') }}" class="nav-menu-item dropdown-item">Publicar Cronograma</a></li>
+                                <li><a href="{{ path('public_cronograma') }}" class="nav-menu-item dropdown-item">Publicar
+                                        Cronograma</a></li>
                             {% endif %}
                         </ul>
                     </div>
                     {% if is_granted('ROLE_ADMIN') %}
-                    <div class="dropdown">
-                        <a class="  nav-menu-item" href="#" data-toggle="dropdown" style="padding: 18px;padding-left: 32px;"><i class="fas fa-wrench me-3"></i>Usuarios<i class="icon-arrow text-black"style="padding: 15px"></i></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="{{ path('t_usuario') }}" class="nav-menu-item" >Usuarios Registrados</a></li>
-                            <li><a  href="{{ path('crear_usuarioJ') }}" class="nav-menu-item dropdown-item">Añadir Jurado </a></li>
-                            <li><a  href="{{ path('crear_usuarioAd') }}" class="nav-menu-item dropdown-item">Añadir Adminstrador</a></li>
-                        </ul>
-                    </div>
+                        <div class="dropdown">
+                            <a class="  nav-menu-item" href="#" data-toggle="dropdown"
+                               style="padding: 18px;padding-left: 32px;"><i class="fas fa-user me-3"></i>Usuarios<i
+                                        class="icon-arrow text-black" style="padding: 15px"></i></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="{{ path('t_usuario') }}" class="nav-menu-item">Usuarios Registrados</a>
+                                </li>
+                                <li><a href="{{ path('crear_usuarioJ') }}" class="nav-menu-item dropdown-item">Añadir
+                                        Jurado </a></li>
+                                <li><a href="{{ path('crear_usuarioAd') }}" class="nav-menu-item dropdown-item">Añadir
+                                        Adminstrador</a></li>
+                            </ul>
+                        </div>
                     {% endif %}
                     <button type="button" class="btn nav-item ml-0" data-bs-toggle="modal"
                             data-bs-target="#exampleModal">
@@ -82,9 +101,9 @@
                 </div>
             </div>
         </div>
-        <!-- End of Sidebar -->
+    <!-- End of Sidebar -->
 
-        <!-- Content Wrapper -->
+    <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
 
             <!-- Main Content -->
@@ -118,20 +137,36 @@
                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-1 d-none d-lg-inline text-white small">{{ app.user.email }}</span>
                                 <img class="img-profile rounded-circle "
-                                     src="{{ asset('img/gamer.png') }}"><span><i style="margin-left: 100px;margin-top: 15px" class="icon-arrow"></i></span>
+                                     src="{{ asset('img/gamer.png') }}" alt="not found"><span><i
+                                            style="margin-left: 100px;margin-top: 15px" class="icon-arrow"></i></span>
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                  aria-labelledby="userDropdown">
                                 <a class="dropdown-item" href="{{ path('usuarioId',{id:usuario.id}) }}">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Profile
+                                    Perfil de Usuario
+                                </a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="{{ path('aña_eventU') }}">
+                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Participar en Evento
+                                </a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="{{ path('Mit_inves') }}">
+                                    <i class="fab fa-product-hunt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Mis Investigaciones
+                                </a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="{{ path('Mit_event') }}">
+                                    <i class="fas fa-search fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Eventos Participados
                                 </a>
                                 <div class="dropdown-divider"></div>
                                 <button type="button" class="btn dropdown-item ml-0" data-bs-toggle="modal"
                                         data-bs-target="#exampleModal">
-                                        <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                        Cerrar Sesion
+                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Cerrar Sesion
                                 </button>
                             </div>
                         </li>
@@ -155,7 +190,7 @@
                                                         class="u-svg-link" preserveAspectRatio="xMidYMin slice"
                                                         viewBox="0 0 512 512"><use xlink:href="#svg-b79a"></use></svg><svg
                                                         xmlns="http://www.w3.org/2000/svg"
-                                                        xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1"
+                                                        xmlns:xlink="http://www.w3.org/1999/xlink"
                                                         id="svg-b79a" x="0px" y="0px" viewBox="0 0 512 512"
                                                         style="enable-background:new 0 0 512 512;" xml:space="preserve"
                                                         class="u-svg-content"><g><path
@@ -180,7 +215,7 @@
                                                         class="u-svg-link" preserveAspectRatio="xMidYMin slice"
                                                         viewBox="0 0 480.008 480.008"><use xlink:href="#svg-462d"></use></svg><svg
                                                         xmlns="http://www.w3.org/2000/svg"
-                                                        xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1"
+                                                        xmlns:xlink="http://www.w3.org/1999/xlink"
                                                         id="svg-462d" x="0px" y="0px" viewBox="0 0 480.008 480.008"
                                                         style="enable-background:new 0 0 480.008 480.008;"
                                                         xml:space="preserve" class="u-svg-content"><g><g><path
@@ -210,7 +245,7 @@
                                                         class="u-svg-link" preserveAspectRatio="xMidYMin slice"
                                                         viewBox="0 0 480 480"><use xlink:href="#svg-4279"></use></svg><svg
                                                         xmlns="http://www.w3.org/2000/svg"
-                                                        xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1"
+                                                        xmlns:xlink="http://www.w3.org/1999/xlink"
                                                         id="svg-4279" x="0px" y="0px" viewBox="0 0 480 480"
                                                         style="enable-background:new 0 0 480 480;" xml:space="preserve"
                                                         class="u-svg-content"><g><g><path
@@ -273,25 +308,26 @@
 
         <!-- Logout Modal-->
         {% block Modal %}
-        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="exampleModalLabel">Cerrar Sesion</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <p>Seguro que desea salir de la página?</p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                        <button type="button" class="btn btn-primary"><a class="text-white"
-                                                                         href="{{ path('app_logout') }}">Cerrar
-                                Sesion</a></button>
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Cerrar Sesion</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p>Seguro que desea salir de la página?</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                            <button type="button" class="btn btn-primary"><a class="text-white"
+                                                                             href="{{ path('app_logout') }}">Cerrar
+                                    Sesion</a></button>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
         {% endblock %}
     </div>
     {% block javascripts %}
@@ -302,8 +338,8 @@
         <script src="{{ asset('js/sb-admin-2.min.js') }}"></script>
         <script src="{{ asset('js/all.js') }}"></script>
         <script src="{{ asset('js/fontawesome.js') }}"></script>
-        <script src="{{ asset('js/sidebars.js')}}"></script>
-        <script src="{{ asset('js/dropdown.js')}}"></script>
+        <script src="{{ asset('js/sidebars.js') }}"></script>
+        <script src="{{ asset('js/dropdown.js') }}"></script>
     {% endblock %}
     </div>
     </body>

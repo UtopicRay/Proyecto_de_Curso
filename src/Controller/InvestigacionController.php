@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Evento;
 use App\Entity\Investigacion;
 use App\Entity\Usuario;
 use App\Form\InvestigacionType;
@@ -37,6 +38,44 @@ class InvestigacionController extends AbstractController
             'inves' => $inves,
             'usuario' => $usu,
         ]);
+    }
+    #[Route('/Mit_inves', name: 'Mit_inves')]
+    public function Mitablas(): Response
+    {
+        $user = $this->getUser()->getUserIdentifier();
+        $usu = $this->em->getRepository(Usuario::class)->findOneBy(['email'=>$user]);
+        $inve=$this->em->getRepository(Investigacion::class)->BuscarInvest($usu->getId());
+        $inves = $this->em->getRepository(Investigacion::class)->mostrarInvestVarias($inve);
+
+        return $this->render('investigacion/tabla-inves.html.twig', [
+            'inves' => $inves,
+            'usuario' => $usu,
+        ]);
+    }
+    #[Route('/investigacion/añadirE/{id}', name: 'ana_eventI')]
+    public function AñadirIE($id): Response
+    {
+        $usurio = $this->getUser()->getUserIdentifier();
+        $usu = $this->em->getRepository(Usuario::class)->findOneBy(['email' => $usurio]);
+        $eventos = $this->em->getRepository(Evento::class)->findOneBy(['id' => $id]);
+        $inve = $this->em->getRepository(Investigacion::class)->BuscarInvest($usu->getId());
+        $inves = $this->em->getRepository(Investigacion::class)->mostrarInvestVarias($inve);
+
+        return $this->render('investigacion/tabla-invesEvent.html.twig', [
+            'eventos' => $eventos,
+            'inves' => $inves,
+            'usuario' => $usu,
+        ]);
+    }
+
+    #[Route('/investigacion/añadirE/{ide}/{id}', name: 'ana_eventIF')]
+    public function AñadirEV($id, $ide): Response
+    {
+        $investigacion = $this->em->getRepository(Investigacion::class)->findOneBy(['id' => $id]);
+        $eventos = $this->em->getRepository(Evento::class)->findOneBy(['id' => $ide]);
+        $investigacion->addEvento($eventos);
+        $this->em->flush();
+        return $this->redirectToRoute('t_evento');
     }
 
     #[Route('/inves/{id}', name: 'invesId')]

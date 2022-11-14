@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Cronograma;
+use App\Entity\Evento;
 use App\Entity\Usuario;
 use App\Form\CronogramaType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -28,9 +29,9 @@ class CronogramaController extends AbstractController
     public function index(PaginatorInterface $paginator, Request $request): Response
     {
 
-        $usurio=$this->getUser()->getUserIdentifier();
-        $usu=$this->em->getRepository(Usuario::class)->findOneBy(['email'=>$usurio]);
-        $dql   = "SELECT a FROM App:Cronograma a";
+        $usurio = $this->getUser()->getUserIdentifier();
+        $usu = $this->em->getRepository(Usuario::class)->findOneBy(['email' => $usurio]);
+        $dql = "SELECT a FROM App:Cronograma a";
         $query = $this->em->createQuery($dql);
         $pagination = $paginator->paginate(
             $query, /* query NOT result */
@@ -39,7 +40,7 @@ class CronogramaController extends AbstractController
         );
         return $this->render('cronograma/tabla_crono.html.twig', [
             'cronograma' => $pagination,
-            'usuario'=>$usu,
+            'usuario' => $usu,
         ]);
     }
 
@@ -57,14 +58,15 @@ class CronogramaController extends AbstractController
         }
 
         return $this->renderForm('cronograma/insertar.html.twig', [
-            'controller_name'=>'Agregar Cronograma',
+            'controller_name' => 'Agregar Cronograma',
             'form' => $form
         ]);
     }
- #[Route('/cronograma/editar/{id}', name: 'edit_cronograma')]
-    public function EditarCronograma($id,Request $request): Response
+
+    #[Route('/cronograma/editar/{id}', name: 'edit_cronograma')]
+    public function EditarCronograma($id, Request $request): Response
     {
-        $cronograma = $this->em->getRepository(Cronograma::class)->findOneBy(['id'=>$id]);
+        $cronograma = $this->em->getRepository(Cronograma::class)->findOneBy(['id' => $id]);
         $form = $this->createForm(CronogramaType::class, $cronograma);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -74,18 +76,42 @@ class CronogramaController extends AbstractController
         }
 
         return $this->renderForm('cronograma/insertar.html.twig', [
-            'controller_name'=>'Editar Cronograma',
+            'controller_name' => 'Editar Cronograma',
             'form' => $form
         ]);
     }
+
+    #[Route('/cronograma/añadirE/{id}', name: 'aña_eventC')]
+    public function AñadirE($id): Response
+    {
+        $usurio = $this->getUser()->getUserIdentifier();
+        $usu = $this->em->getRepository(Usuario::class)->findOneBy(['email' => $usurio]);
+        $cronograma = $this->em->getRepository(Cronograma::class)->findOneBy(['id' => $id]);
+        $eventos = $this->em->getRepository(Evento::class)->findAll();
+        return $this->render('evento/tabla-eventos.html.twig', [
+            'cronograma' => $cronograma,
+            'usuario' => $usu,
+            'eventos' => $eventos
+        ]);
+    }
+    #[Route('/cronograma/añadirE/{id}/{ide}', name: 'aña_eventCF')]
+    public function AñadirEV($id,$ide): Response
+    {
+        $cronograma = $this->em->getRepository(Cronograma::class)->findOneBy(['id' => $id]);
+        $eventos = $this->em->getRepository(Evento::class)->findOneBy(['id'=>$ide]);
+        $cronograma->addEvento($eventos);
+        $this->em->flush();
+        return $this->redirectToRoute('t_evento');
+    }
+
     #[Route('/cronograma/remover/{id}', name: 'remove_cronograma')]
     public function RemoverCronograma($id): Response
     {
-        $cronograma = $this->em->getRepository(Cronograma::class)->findOneBy(['id'=>$id]);
+        $cronograma = $this->em->getRepository(Cronograma::class)->findOneBy(['id' => $id]);
         $this->em->remove($cronograma);
-            $this->em->flush();
-            return $this->redirectToRoute('t_cronograma');
-        }
+        $this->em->flush();
+        return $this->redirectToRoute('t_cronograma');
+    }
 
 
 }

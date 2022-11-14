@@ -19,17 +19,19 @@ class EventoType extends AbstractType
     {
         $builder
             ->add('Nombre', TextType::class, ['attr' =>
-                ['class' => 'form-control',
-                    'required' => '',
-                    'placeholder' => 'Nombre del evento']
+                ['class' => ' form-control-user',
+                    'required' => '']
             ])
             ->add('Tematica', ChoiceType::class, [
-                'choices' => Evento::TIPOS])
+                'choices' => Evento::TIPOS,
+                'attr'=>['class'=>'btn-user btn']])
             ->add('fecha_ini', DateType::class, ['attr' => ['required' => '']])
             ->add('fecha_fin', DateType::class, ['attr' => ['required' => '']])
             ->add('hora_inic', TimeType::class, ['attr' => ['required' => '']])
             ->add('hora_fin', TimeType::class, ['attr' => ['required' => '']])
-            ->add('Aceptar', SubmitType::class);
+            ->add('Aceptar', SubmitType::class,[
+                'attr'=>['class'=>'btn-primary btn-user btn-block']
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

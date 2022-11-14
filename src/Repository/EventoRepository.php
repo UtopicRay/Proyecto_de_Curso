@@ -4,7 +4,9 @@ namespace App\Repository;
 
 use App\Entity\Evento;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
+use http\QueryString;
 
 /**
  * @extends ServiceEntityRepository<Evento>
@@ -38,6 +40,54 @@ class EventoRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+
+    public function hola($date){
+        return $this->getEntityManager()->createQuery('Select e 
+        From App:Evento e
+        where e.fecha_ini<= :date and e.fecha_fin>=:date')->setParameter('date',$date);
+    }
+
+    public function ContarUsuario($id)
+    {
+       return $this->getEntityManager()->createQuery('Select COUNT(f.id) 
+        From App:Evento e Join e.usuarios f 
+        where e.id=:id')
+            ->setParameter('id',$id)
+            ->getSingleResult();
+    }
+    public function ContarInvestigacion($id)
+    {
+       return $this->getEntityManager()->createQuery('Select COUNT(f.id) 
+        From App:Evento e Join e.investigacion f 
+        where e.id=:id')
+            ->setParameter('id',$id)
+            ->getSingleResult();
+    }
+    public function ContarCronograma($id)
+    {
+       return $this->getEntityManager()->createQuery('Select COUNT(f.id) 
+        From App:Evento e Join e.cronogramas f 
+        where e.id=:id')
+            ->setParameter('id',$id)
+            ->getSingleResult();
+    }
+    public function mostrarEventVarias($ids)
+    {
+        return $this->getEntityManager()->createQuery('select evento
+       from App:Evento evento 
+       Join evento.usuarios usuario
+       where evento.id IN (:id)')
+            ->setParameter('id', $ids)
+            ->getResult();
+    }
+public function MisEventos($ids){
+    return $this->getEntityManager()->createQuery('select evento
+       from App:Evento evento 
+       Join evento.usuarios usuario
+       where evento.id IN (:id)')
+        ->setParameter('id', $ids);
+}
+
 
 //    /**
 //     * @return Evento[] Returns an array of Evento objects

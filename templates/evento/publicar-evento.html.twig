@@ -1,43 +1,57 @@
 {% extends 'base.html.twig' %}
 {% block title %}Publicar Evento!{% endblock %}
 {% block stylesheets %}
-    <link rel="stylesheet" href="{{ asset('bootstrap/css/bootstrap.min.css') }}">
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/principal/crearusuario.css') }}">
 {% endblock %}
 {% block body %}
-    <body class="align-middle">
-    <div class="card shadow" data-aos="fade-up" data-aos-duration="300" data-aos-delay="100"
-         style="height: 508.25px;width: 700px;margin-left: 350px;margin-top: 40px;">
-        <div class="card-body text-capitalize col-lg-10 m-5">
-            <form>
-                {{ form_start(form) }}
-                <h1 class="text-center mt-0">{{ controller_name |capitalize }}</h1>
-                <div class="text-start row justify-content-center">
-                    <div class="col-lg-12 mt-1 mb-1"><label class="form-label">Nombre</label>
-                        {{ form_widget(form.Nombre) }}
-                    </div>
-                    <div class="col-lg-12 mt-1 mb-1 "><label class="form-label">Tematica a tratar</label>
-                        {{ form_widget(form.Tematica) }}
-                    </div>
-                    <div class="col-lg-6 mt-1 mb-1"><label class="form-label">fecha de Inicio</label>
-                        {{ form_widget(form.fecha_ini) }}
-                        <label class="form-label">Hora de Inicio</label>
-                        {{ form_widget(form.hora_inic) }}
-                    </div>
-                    <div class="col-lg-6 mt-1 mb-1"><label class="form-label">Fecha de Cierre</label>
-                        {{ form_widget(form.fecha_fin) }}
-                        <label class="form-label">Hora de Cierre</label>
-                        {{ form(form.hora_fin ) }}
-                    </div>
-                    <div class="col-lg-6">
-                        {{ form_widget(form.Aceptar,{attr:{'class':'btn btn-primary'}}) }}
+    <body >
+    <div class="container col-lg-8">
+        <div class="card o-hidden border-0 shadow-lg my-5" style="background-color: #2a2b38">
+            <div class="card-body p-0">
+                <!-- Nested Row within Card Body -->
+                <div class="row">
+                    <div class="col-lg-5 d-none d-lg-block"></div>
+                    <div class="p-5">
+                        <div class="text-center">
+                            <h1 class="h4 text-gray mb-4">{{ controller_name }}</h1>
+                        </div>
+                        {{ form_start(form,{attr:{'class':'user'}}) }}
+                        <div class="form-group row">
+                            <div class="form-group">
+                                <label class="form-label">Nombre del Evento</label>
+                                {{ form_widget(form.Nombre) }}
+                            </div>
+                            <div class="col-sm-12">
+                                <label class="form-label">Tema Principal del Evento</label>
+                                {{ form_widget(form.Tematica) }}
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="form-group row">
+                                <div class="col-sm-6 mb-3 mb-sm-0">
+                                    <label class="form-label">Fecha de Inicio del Evento</label>
+                                    {{ form_widget(form.fecha_ini) }}
+                                    <label class="form-label"> Hora de Inicio del Evento</label>
+                                    {{ form_widget(form.hora_inic) }}
+                                </div>
+                                <div class="col-sm-6 mb-3 mb-sm-0">
+                                    <label class="form-label">Fecha de cierre del Evento</label>
+                                    {{ form_widget(form.fecha_fin) }}
+                                    <label class="form-label"> Hora de Cierre del Evento</label>
+                                    {{ form_widget(form.hora_fin) }}
+                                </div>
+                            </div>
+                            {{ form_widget(form.Aceptar) }}
+                            {{ form_end(form) }}
+                        </div>
                     </div>
                 </div>
-                {{ form_end(form) }}
-            </form>
+            </div>
         </div>
     </div>
     {% block javascripts %}
-        <script src="{{ asset('bootstrap/js/bootstrap.min.js') }}"></script>
-        <script src="{{ asset('bootstrap/js/script.min.js') }}"></script>
+        {{ parent() }}
     {% endblock %}
+    </body>
 {% endblock %}

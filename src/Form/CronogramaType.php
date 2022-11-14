@@ -21,7 +21,7 @@ class CronogramaType extends AbstractType
     {
         $builder
             ->add('tema', TextType::class, [
-                'attr' => ['class' => 'form-control',
+                'attr' => ['class' => 'form-control form-control-user form-style',
                     'required' => '',
                     'placeholder' => 'Tema de la actividad']])
             ->add('catedra', ChoiceType::class, [
@@ -29,10 +29,10 @@ class CronogramaType extends AbstractType
                 'attr' => ['class' => 'form-control',
                     'required' => '']
             ])
-            ->add('fecha_ini', DateType::class, ['attr' => ['required' => '']])
-            ->add('fecha_fin', DateType::class, ['attr' => ['required' => '']])
-            ->add('hora_inic', TimeType::class, ['attr' => ['required' => '']])
-            ->add('hora_final', TimeType::class, ['attr' => ['required' => '']])
+            ->add('fecha_ini',DateType::class)
+            ->add('fecha_fin',DateType::class)
+            ->add('hora_inic',TimeType::class)
+            ->add('hora_final',TimeType::class)
             ->add('Aceptar', SubmitType::class);
     }
 

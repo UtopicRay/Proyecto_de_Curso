@@ -13,11 +13,13 @@
         {% endblock %}
         <div class="container-fluid mt-5 pt-4">
             <!-- Page Heading -->
-            <h1 class="h3 mb-2 text-gray-800">Eventos</h1>
-            <p class="mb-4">La siguiente tabla muestra todos los eventos realizados hasta la fecha</p>
+            <h1 class="h3 mb-2 text-gray-800">Tables</h1>
+            <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
+                For more information about DataTables, please visit the
+
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">Eventos Publicados</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">Investigaciones Publicadas</h6>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -25,31 +27,36 @@
                             <thead>
                             <tr>
                                 <th>Id</th>
-                                <th>Nombre</th>
-                                <th>Tematica</th>
-                                <th>Fecha de inicio</th>
-                                <th>Fecha de Cierre</th>
+                                <th>Titulo</th>
+                                <th>Catedra</th>
+                                <th>Facultad</th>
+                                <th>Puntuacion</th>
                             </tr>
                             </thead>
                             <tfoot>
                             <tr>
                                 <th>Id</th>
-                                <th>Nombre</th>
-                                <th>Tematica</th>
-                                <th>Fecha de inicio</th>
-                                <th>Fecha de Cierre</th>
+                                <th>Titulo</th>
+                                <th>Catedra</th>
+                                <th>Facultad</th>
+                                <th>Puntuacion</th>
                             </tr>
                             </tfoot>
                             <tbody>
-                            {% for eve in eventos %}
+                            {% for inve in inves %}
                                 <tr>
-                                    <td>{{ eve.id }}</td>
-                                    <td><a href="{{ path('aña_eventCF',{ id:cronograma.id,ide:eve.id }) }}">{{ eve.Nombre }}</a></td>
-                                    <td>{{ eve.Tematica }}</td>
-                                        <td>{{ eve.fechaini| format_date() }} {{ eve.horainic| format_time() }}</td>
-                                    <td>{{ eve.fechafin| format_date() }} {{ eve.horafin| format_time() }}</td>
-                                </tr>
+                                    <td>{{ inve.id }}</td>
+                                    <td><a href="{{ path('ana_eventIF',{ ide:eventos.id,id:inve.id }) }}">{{ inve.Titulo }}</a></td>
+                                    <td>{{ inve.Catedra }}</td>
+                                    <td>{{ inve.Facultad }}</td>
+                                    {% if  inve.puntuacion ==null %}
+                                        <td>Sin evaluar</td>
+                                    {% else %}
+                                        <td>{{ inve.puntuacion }}</td>
+                                    {% endif %}
+                                    </tr>
                             {% endfor %}
+
                             </tbody>
                         </table>
                     </div>
@@ -78,16 +85,19 @@
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
     </a>
+
+    <!-- Logout Modal-->
     {% block Modal %}
         {{ parent() }}
     {% endblock %}
-
     </body>
     {% block javascripts %}
         {{ parent() }}
         <script src="{{ asset('js/datatables.min.js') }}"></script>
         <script src="{{ asset('js/scripts.js') }}"></script>
+
         <!-- Page level plugins -->
         <script src="{{ asset('js/dataTables.bootstrap5.min.js') }}"></script>
+
     {% endblock %}
 {% endblock %}

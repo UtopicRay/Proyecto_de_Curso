@@ -6,37 +6,55 @@
     <link rel="stylesheet" href="{{ asset('css/principal/crearusuario.css') }}">
 {% endblock %}
 {% block body %}
-    <body class="align-middle">
-    <div class="card shadow" data-aos="fade-up" data-aos-duration="300" data-aos-delay="100"
-         style="height: 508.25px;width: 700px;margin-left: 350px;margin-top: 80px;">
-        <div class="card-body text-capitalize col-lg-10 m-5">
-                {{ form_start(form,{attr:{'class':'user'}}) }}
-                <h1 class="text-center mt-0">{{ controller_name |capitalize }}</h1>
-                <div class="text-start row justify-content-center">
-                    <div class="col-lg-12 mt-1 mb-1"><label class="form-label">Tema</label>
-                        {{ form_widget(form.tema)}}
+
+    <body >
+    <div class="container col-lg-8">
+        <div class="card o-hidden border-0 shadow-lg my-5" style="background-color: #2a2b38">
+            <div class="card-body p-0">
+                <!-- Nested Row within Card Body -->
+                <div class="row">
+                    <div class="col-lg-5 d-none d-lg-block"></div>
+                    <div class="p-5">
+                        <div class="text-center">
+                            <h1 class="h4 text-gray mb-4">{{ controller_name }}</h1>
+                        </div>
+                        {{ form_start(form,{attr:{'class':'user'}}) }}
+                        <div class="form-group row">
+                            <div class="form-group">
+                                <label class="form-label">Tema de la Actividad</label>
+                                {{ form_widget(form.tema) }}
+                            </div>
+                                <div class="col-sm-12">
+                                    <label class="form-label">Catedra a la que pertenece</label>
+                                    {{ form_widget(form.catedra) }}
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="form-group row">
+                                    <div class="col-sm-6 mb-3 mb-sm-0">
+                                        <label class="form-label">Fecha de Inicio</label>
+                                        {{ form_widget(form.fecha_ini) }}
+                                       <label class="form-label"> Hora de Inicio</label>
+                                        {{ form_widget(form.hora_inic) }}
+                                    </div>
+                                    <div class="col-sm-6 mb-3 mb-sm-0">
+                                        <label class="form-label">Fecha de cierre de la Actividad</label>
+                                        {{ form_widget(form.fecha_fin) }}
+                                        <label class="form-label"> Hora de Cierre de la Actividad</label>
+                                        {{ form_widget(form.hora_final) }}
+                                    </div>
+                                </div>
+                                {{ form_widget(form.Aceptar,{attr:{'class':'btn btn-primary btn-user btn-block'}}) }}
+                                {{ form_end(form) }}
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-lg-12 mt-1 mb-1 "><label class="form-label">Catedra</label>
-                        {{ form_widget(form.catedra,{attr:{'class':'form-control','required':''}}) }}
-                       </div>
-                    <div class="col-lg-6 mt-1 mb-1"><label class="form-label">fecha de Inicio</label>
-                        {{ form_widget(form.fecha_ini,{attr:{'required':''}}) }}
-                        <label class="form-label">Hora de Inicio</label>
-                        {{ form_widget(form.hora_inic,{attr:{'required':''}}) }}
-                    </div>
-                    <div class="col-lg-6 mt-1 mb-1"><label class="form-label">Fecha de Cierre</label>
-                        {{ form_widget(form.fecha_fin,{attr:{'required':''}}) }}
-                        <label class="form-label">Hora de Cierre</label>
-                        {{ form(form.hora_final,{attr:{'required':''}}) }}
-                    </div>
-                    <div class="col-lg-6">
-                    {{ form_widget(form.Aceptar,{attr:{'class':'btn btn-primary'}}) }}
-                    </div>
-                    </div>
-                {{ form_end(form) }}
+                </div>
+            </div>
         </div>
     </div>
     {% block javascripts %}
         {{ parent() }}
     {% endblock %}
+    </body>
 {% endblock %}

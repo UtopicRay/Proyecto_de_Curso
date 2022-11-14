@@ -1,0 +1,121 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Tablas investigaciones{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/Ejemplo.css') }}">
+{% endblock %}
+{% block body %}
+    <body id="page-top">
+    {% block navegacion %}
+        {{ parent() }}
+    {% endblock %}
+
+    <div class="main-wrapper">
+        <div class="card-container">
+            {% for i,eve in eventos %}
+                    <div class="card-wrapper">
+                        <div class="card">
+                            <div class="card-profile-img-holder">
+                                <img class="card-profile-img" src="{{ asset('img/logouci.png') }}">
+                            </div>
+                            <div class="card-banner">
+                                <img class="card-banner-img" style="width: 100%"
+                                     src="{{ asset('img/images (6).jfif') }}">
+                            </div>
+                            <div class="card-info">
+                                <div class="row">
+                                    <div class="col-12 open-spot-holder">
+                                        <span class="open-spot-count">{{ pila[i][1] }}</span>
+                                        <span class="open-spot">Participantes</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-10 offset-1 event-title-holder">
+                                        <h3>{{ eve.Nombre | capitalize }}</h3>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-10 offset-1 ">
+                                        <p>Tematica: {{ eve.Tematica }}</p>
+                                        <a href="#">Actividades del Evento:{{ pilaC[i][1] }}</a>
+                                        <a href="#">Investigaciones Presentadas:{{ pilaI[i][1] }}</a>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-10 offset-1 event-details-holder">
+                                        <div class="row">
+                                            <div class="col-1">
+                                                <i class="far fa-clock" aria-hidden="true"></i>
+                                            </div>
+                                            <div class="col-10">
+                                                <p>{{ eve.fechaini|format_date() }} {{ eve.horainic|format_time() }}
+                                                    -{{ eve.fechafin|format_date() }} {{ eve.horafin|format_time() }}</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-1">
+                                                <i class="far fa-calendar" aria-hidden="true"></i>
+                                            </div>
+                                            <div class="col-10">
+                                                <p>Ongoing</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-1">
+                                                <i class="fas fa-map-marker"></i>
+                                            </div>
+                                            <div class="col-10">
+                                                <p>300 March Road, Kanata, ON</p>
+                                                <p>Canada K2K 3P1</p>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="event-footer-holder">
+                                    <div class="ribbon full">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            {% endfor %}
+
+
+            <!-- /.container-fluid -->
+        </div>
+
+        <!-- End of Main Content -->
+    </div>
+    <!-- Footer -->
+    <div class="navigation">
+        {{ knp_pagination_render(eventos ) }}
+    </div>
+    {% block footer %}
+        {{ parent() }}
+    {% endblock %}
+    <!-- End of Footer -->
+
+    <!-- End of Content Wrapper -->
+
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+    {% block Modal %}
+        {{ parent() }}
+    {% endblock %}
+    </div>
+    </body>
+    {% block javascripts %}
+        {{ parent() }}
+        <script src="{{ asset('js/datatables.min.js') }}"></script>
+        <script src="{{ asset('js/scripts.js') }}"></script>
+        <!-- Page level plugins -->
+        <script src="{{ asset('js/dataTables.bootstrap5.min.js') }}"></script>
+    {% endblock %}
+{% endblock %}

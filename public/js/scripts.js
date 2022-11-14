@@ -1,8 +1,4 @@
 
-$(document).ready(function () {
-    $("#dataTable").DataTable();
-})
-
 function eliminarInvestigacion(id) {
 
     if (!confirm('Desee eliminar esta investigacion')) {

@@ -50,7 +50,7 @@ class InvestigacionRepository extends ServiceEntityRepository
     }
     public function mostrarInvestVarias($ids)
     {
-        return $this->getEntityManager()->createQuery('select investigacion.Titulo,investigacion.descripcion,investigacion.Catedra,investigacion.puntuacion,investigacion.archivo,usuario.id 
+        return $this->getEntityManager()->createQuery('select investigacion
        from App:Investigacion investigacion 
        Join investigacion.usuarios usuario
        where investigacion.id IN (:id)')
@@ -65,6 +65,15 @@ class InvestigacionRepository extends ServiceEntityRepository
        from App:Investigacion investigacion 
        Join investigacion.usuarios usuario
        where investigacion.id=:id')
+            ->setParameter('id', $id)
+            ->getResult();
+    }
+    public function BuscarInvest($id)
+    {
+        return $this->getEntityManager()->createQuery('Select investigacion.id 
+       from App:Usuario usuario 
+       Join usuario.investigacion investigacion
+       where usuario.id=:id')
             ->setParameter('id', $id)
             ->getResult();
     }

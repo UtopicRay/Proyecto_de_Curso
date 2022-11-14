@@ -5,9 +5,6 @@
     <link rel="stylesheet" href="{{ asset('sb-admin/css/sb-admin-2.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/principal/crearusuario.css') }}">
 {% endblock %}
-{% block javascripts %}
-    {{ parent() }}
-{% endblock %}
 {% block body %}
     <body >
     <div class="container col-lg-8">
@@ -22,23 +19,24 @@
                             </div>
                             {{ form_start(form,{attr:{'class':'user'}}) }}
                             <div class="form-group row">
-                                <div class="form-group">
-                                    {{ form_widget(form.Titulo,{attr:{'placeholder':'Titulo','type':'email','class':'form-control form-control-user form-style'}}) }}
+                                <div class="form-group"><label class="form-label">Titulo</label>
+                                    {{ form_widget(form.Titulo,{attr:{'placeholder':'Titulo de la Investigacion','type':'email','class':'form-control form-control-user form-style'}}) }}
                                 </div>
                                 <div class="form-group row">
-                                    <div class="col-sm-6 mb-3 mb-sm-0">
+                                    <div class="col-sm-6 mb-3 mb-sm-0"><label class="form-label">Facultad</label>
                                         {{ form_widget(form.Facultad,{attr:{'class':' btn btn-block btn-user border'}}) }}
                                     </div>
-                                    <div class="col-sm-6">
+                                    <div class="col-sm-6"><label class="form-label">Catedra a presentar</label>
                                         {{ form_widget(form.Catedra,{attr:{'class':' btn btn-block btn-user border'}}) }}
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <div class="form-group">
-                                        {{ form_widget(form.descripcion,{attr:{'placeholder':'Descripcion','type':'email','class':'form-control form-control-user form-style'}}) }}
+                                        <label class="form-label">Descripcion</label>
+                                        {{ form_widget(form.descripcion,{attr:{'placeholder':'Resumen de la Investigacion','type':'email','class':'form-control form-control-user form-style'}}) }}
                                     </div>
                                 <div class="form-group row">
-                                    <div class="col-sm-12 mb-3 mb-sm-0">
+                                    <div class="col-sm-12 mb-3 mb-sm-0"><label class="form-label">Archivo de la Investigacion</label>
                                         {{ form_widget(form.archivo,{attr:{'class':' btn btn-block btn-user border'}}) }}
                                     </div>
                                 </div>
@@ -52,5 +50,9 @@
             </div>
         </div>
     </div>
+
+    {% block javascripts %}
+        {{ parent() }}
+    {% endblock %}
     </body>
 {% endblock %}

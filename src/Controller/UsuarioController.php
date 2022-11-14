@@ -2,10 +2,11 @@
 
 namespace App\Controller;
 
+
+use App\Entity\Evento;
 use App\Entity\Investigacion;
 use App\Entity\Usuario;
 use App\Form\UsuarioType;
-use App\Service\EventoService;
 use App\Service\UsuarioService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -45,7 +46,7 @@ class UsuarioController extends AbstractController
             return $this->redirectToRoute('home');
         }
         return $this->renderForm('usuario/crearusuario.html.twig', [
-            'controller_name'=>'Registrar Usuario',
+            'controller_name' => 'Registrar Usuario',
             'form' => $form,
         ]);
     }
@@ -68,7 +69,7 @@ class UsuarioController extends AbstractController
             return $this->redirectToRoute('home');
         }
         return $this->renderForm('usuario/crearusuario.html.twig', [
-            'controller_name'=>'Registrar Jurado',
+            'controller_name' => 'Registrar Jurado',
             'form' => $form,
         ]);
     }
@@ -91,15 +92,15 @@ class UsuarioController extends AbstractController
             return $this->redirectToRoute('home');
         }
         return $this->renderForm('usuario/crearusuario.html.twig', [
-            'controller_name'=>'Registrar Administrador',
+            'controller_name' => 'Registrar Administrador',
             'form' => $form,
         ]);
     }
 
-#[Route('/editarUsuario/{id}', name: 'edit_usuario')]
-    public function EditarUsuario(Request $request, UserPasswordHasherInterface $passwordHasher,$id): Response
+    #[Route('/editarUsuario/{id}', name: 'edit_usuario')]
+    public function EditarUsuario(Request $request, UserPasswordHasherInterface $passwordHasher, $id): Response
     {
-        $usuario = $this->em->getRepository(Usuario::class)->findOneBy(['id'=>$id]);
+        $usuario = $this->em->getRepository(Usuario::class)->findOneBy(['id' => $id]);
 
         $form = $this->createForm(UsuarioType::class, $usuario);
         $form->handleRequest($request);
@@ -111,7 +112,7 @@ class UsuarioController extends AbstractController
             return $this->redirectToRoute('home');
         }
         return $this->renderForm('usuario/crearusuario.html.twig', [
-            'controller_name'=>'Editar Usuario',
+            'controller_name' => 'Editar Usuario',
             'form' => $form,
         ]);
     }
@@ -136,14 +137,37 @@ class UsuarioController extends AbstractController
         $mostrar = $this->em->getRepository(Usuario::class)->find($id);
         $invest = $this->em->getRepository(Usuario::class)->BuscarInvestigacion($id);
         $inve = $this->em->getRepository(Investigacion::class)->MostrarInvestVarias($invest);
-
+        $evento = $this->em->getRepository(Usuario::class)->BuscarEvento($id);
+        $eventos = $this->em->getRepository(Evento::class)->mostrarEventVarias($evento);
         return $this->render('usuario/detallesUsuario.html.twig', [
             'usuario' => $mostrar,
             'invest' => $inve,
+            'evento'=>$eventos
         ]);
     }
 
+    #[Route('/usuario/añadir', name: 'aña_eventU')]
+    public function AnadirUsuarioE(): Response
+    {
+        $usurio = $this->getUser()->getUserIdentifier();
+        $usu = $this->em->getRepository(Usuario::class)->findOneBy(['email' => $usurio]);
+        $eventos = $this->em->getRepository(Evento::class)->findAll();
+        return $this->render('evento/tabla-eventosUsuario.html.twig', [
+            'usuario' => $usu,
+            'eventos' => $eventos
+        ]);
+    }
 
+    #[Route('/usuario/añadirE/{ide}', name: 'aña_eventUsu')]
+    public function AnadirEV($ide): Response
+    {
+        $usuario = $this->getUser()->getUserIdentifier();
+        $usu = $this->em->getRepository(Usuario::class)->findOneBy(['email' => $usuario]);
+        $eventos = $this->em->getRepository(Evento::class)->findOneBy(['id' => $ide]);
+        $usu->addEvento($eventos);
+        $this->em->flush();
+        return $this->redirectToRoute('t_eventoAc');
+    }
 
 //API
     #[Route('api/usuario', name: 'app_usuario')]
