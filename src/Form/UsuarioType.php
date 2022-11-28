@@ -30,7 +30,7 @@ class UsuarioType extends AbstractType
             ->add('email', EmailType::class)
             ->add('Nombre')
             ->add('Apellido')
-            ->add('submit', SubmitType::class);
+            ->add('Aceptar', SubmitType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

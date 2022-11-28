@@ -51,7 +51,7 @@ class UsuarioController extends AbstractController
         ]);
     }
 
-    #[Route('/crearusuarioJ', name: 'crear_usuarioJ')]
+    #[Route('/usuario/crearusuarioJ', name: 'crear_usuarioJ')]
     public function crearUsuarioJ(Request $request, UserPasswordHasherInterface $passwordHasher): Response
     {
         $usuario = new Usuario();
@@ -74,7 +74,7 @@ class UsuarioController extends AbstractController
         ]);
     }
 
-    #[Route('/crearusuarioAd', name: 'crear_usuarioAd')]
+    #[Route('/usuario/crearusuarioAd', name: 'crear_usuarioAd')]
     public function crearUsuarioAd(Request $request, UserPasswordHasherInterface $passwordHasher): Response
     {
         $usuario = new Usuario();
@@ -118,7 +118,7 @@ class UsuarioController extends AbstractController
     }
 
 
-    #[Route('/t_usuario', name: 't_usuario')]
+    #[Route('/usuario/t_usuario', name: 't_usuario')]
     public function MostrarUsuario(): Response
     {
         $user = $this->getUser()->getUserIdentifier();
@@ -145,18 +145,7 @@ class UsuarioController extends AbstractController
             'evento'=>$eventos
         ]);
     }
-
-    #[Route('/usuario/añadir', name: 'aña_eventU')]
-    public function AnadirUsuarioE(): Response
-    {
-        $usurio = $this->getUser()->getUserIdentifier();
-        $usu = $this->em->getRepository(Usuario::class)->findOneBy(['email' => $usurio]);
-        $eventos = $this->em->getRepository(Evento::class)->findAll();
-        return $this->render('evento/tabla-eventosUsuario.html.twig', [
-            'usuario' => $usu,
-            'eventos' => $eventos
-        ]);
-    }
+    
 
     #[Route('/usuario/añadirE/{ide}', name: 'aña_eventUsu')]
     public function AnadirEV($ide): Response

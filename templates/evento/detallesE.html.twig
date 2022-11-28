@@ -52,7 +52,7 @@
                                         <i class="far fa-clock" aria-hidden="true"></i>
                                     </div>
                                     <div class="col-10">
-                                        <p>{{ evento.fechaini|format_date() }} {{ evento.horainic|format_time() }}-{{ evento.fechafin|format_date() }} {{ evento.horafin|format_time() }}</p>
+                                        <p> {{ evento.horainic|format_time() }}- {{ evento.horafin|format_time() }}</p>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -60,7 +60,7 @@
                                         <i class="far fa-calendar" aria-hidden="true"></i>
                                     </div>
                                     <div class="col-10">
-                                        <p>Ongoing</p>
+                                        <p>{{ evento.fechaini|format_date() }} - {{ evento.fechafin|format_date() }} </p>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -68,8 +68,7 @@
                                         <i class="fas fa-map-marker"></i>
                                     </div>
                                     <div class="col-10">
-                                        <p>300 March Road, Kanata, ON</p>
-                                        <p>Canada K2K 3P1</p>
+                                        <p>Universidad de Ciencias Informáticas</p>
                                     </div>
                                     <div class="col-lg-10 mt-2">
                                     <button onclick="eliminarEvento({{ evento.id }})" type="button" class="btn btn-sm btn-danger btn-outline-secondary"><a class="text-white"> <span class="icon text-white">

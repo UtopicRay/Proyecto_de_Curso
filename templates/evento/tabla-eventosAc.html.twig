@@ -49,8 +49,8 @@
                                                 <i class="far fa-clock" aria-hidden="true"></i>
                                             </div>
                                             <div class="col-10">
-                                                <p>{{ eve.fechaini|format_date() }} {{ eve.horainic|format_time() }}
-                                                    -{{ eve.fechafin|format_date() }} {{ eve.horafin|format_time() }}</p>
+                                                <p> {{ eve.horainic|format_time() }}
+                                                    - {{ eve.horafin|format_time() }}</p>
                                             </div>
                                         </div>
                                         <div class="row">
@@ -58,7 +58,7 @@
                                                 <i class="far fa-calendar" aria-hidden="true"></i>
                                             </div>
                                             <div class="col-10">
-                                                <p>Ongoing</p>
+                                                <p>{{ eve.fechaini|format_date() }} - {{ eve.fechafin|format_date() }}</p>
                                             </div>
                                         </div>
                                         <div class="row">
@@ -66,8 +66,7 @@
                                                 <i class="fas fa-map-marker"></i>
                                             </div>
                                             <div class="col-10">
-                                                <p>300 March Road, Kanata, ON</p>
-                                                <p>Canada K2K 3P1</p>
+                                                <p>Universidad de Ciencias Informáticas</p>
                                             </div>
                                             <div class="col-lg-10 mt-2">
                                                 <button  type="button"

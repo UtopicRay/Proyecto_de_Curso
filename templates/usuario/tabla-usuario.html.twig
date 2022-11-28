@@ -1,0 +1,99 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Tablas investigaciones{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/dataTables.bootstrap5.min.css') }}">
+{% endblock %}
+{% block body %}
+    <body id="page-top">
+    <div id="wrapper">
+        {% block navegacion %}
+            {{ parent() }}
+        {% endblock %}
+        <div class="container-fluid mt-5 pt-4">
+            <!-- Page Heading -->
+            <h1 class="h3 mb-2 text-gray-800">Usuario</h1>
+            <p class="mb-4">La siguiente tabla muestra los usuarios registrados hasta la fecha actual.
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Usuarios Registrados</h6>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="dataTable">
+                            <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Nombre</th>
+                                <th>Nombre Usuario</th>
+                                <th>Email</th>
+                                <th>Rol</th>
+                            </tr>
+                            </thead>
+                            <tfoot>
+                            <tr>
+                            <tr>
+                                <th>Id</th>
+                                <th>Nombre</th>
+                                <th>Nombre Usuario</th>
+                                <th>Email</th>
+                                <th>Rol</th>
+                            </tr>
+                            </tr>
+                            </tfoot>
+                            <tbody>
+                            {% for usuarios in usuariot %}
+                                <tr>
+                                    <td>{{ usuarios.id }}</td>
+                                    <td><a href="{{ path('usuarioId',{id:usuarios.id}) }}">{{ usuarios.nombre }} {{ usuarios.apellido }}</a></td>
+                                    <td>{{ usuarios.Nombreusuario }}</td>
+                                    <td>{{ usuarios.email }}</td>
+                                    <td>{{ usuarios.roles[0] }}</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- /.container-fluid -->
+
+    </div>
+    <!-- End of Main Content -->
+
+    <!-- Footer -->
+    {% block footer %}
+        {{ parent() }}
+    {% endblock %}
+    <!-- End of Footer -->
+
+    </div>
+    <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+    <!-- Logout Modal-->
+    {% block Modal %}
+        {{ parent() }}
+    {% endblock %}
+    </body>
+    {% block javascripts %}
+        {{ parent() }}
+        <script src="{{ asset('js/datatables.min.js') }}"></script>
+        <script src="{{ asset('js/scripts.js') }}"></script>
+        <!-- Page level plugins -->
+        <script src="{{ asset('js/dataTables.bootstrap5.min.js') }}"></script>
+        <!-- Page level custom scripts -->
+        <script src={{ asset('js/datatables-demo.js') }}></script>
+
+    {% endblock %}
+{% endblock %}

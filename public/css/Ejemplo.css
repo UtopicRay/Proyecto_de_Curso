@@ -1,0 +1,408 @@
+body {
+    font-family: "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-weight: 300;
+}
+
+.main-wrapper {
+    padding: 10px;
+}
+
+/* Containers */
+.card-container {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+
+}
+
+.card-wrapper {
+    -ms-flex: 25%; /* IE10 */
+    flex: 25%;
+    max-width: 25%;
+    display: flex;
+    align-items: stretch;
+    padding: 15px;
+}
+
+.card {
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    overflow: hidden;
+    border: none;
+    position: relative;
+    min-height: 500px;
+    transition: box-shadow 0.3s ease-in-out;
+    cursor: pointer;
+
+    -webkit-box-shadow: 0px 0px 15px 5px rgba(0,0,0,0.3);
+    -moz-box-shadow: 0px 0px 15px 5px rgba(0,0,0,0.3);
+    box-shadow: 0px 0px 15px 5px rgba(0,0,0,0.3);
+}
+
+.card:hover {
+    -webkit-box-shadow: 0px 0px 15px 5px rgba(0,0,0,0.8);
+    -moz-box-shadow: 0px 0px 15px 5px rgba(0,0,0,0.8);
+    box-shadow: 0px 0px 15px 5px rgba(0,0,0,0.8);
+}
+
+/* Profile Image */
+.card .card-profile-img-holder {
+    height: 80px;
+    width: 80px;
+    background: #000;
+    position: absolute;
+    z-index: 100;
+    top: 60px;
+    left: 9%;
+    overflow: hidden;
+}
+
+.card .card-profile-img {
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: -20%;
+}
+
+/* Banners */
+.card .card-banner {
+    width: 100%;
+    height: 120px;
+    overflow: hidden;
+    position: relative;
+}
+
+.card .card-banner .card-banner-img{
+    width: 150%;
+    top: -100%;
+    position: absolute;
+}
+
+/* Open Spots */
+.card .open-spot-holder {
+    text-align: right;
+    font-size: 12px;
+    margin-top: 5px;
+    padding: 0 25px;
+    min-height: 18px;
+}
+
+.card .open-spot-holder .open-spot-count {
+    text-transform: uppercase;
+    color: #000;
+    font-weight: 600;
+}
+
+.card .open-spot-holder .open-spot {
+    text-transform: uppercase;
+    color: #cfcfcf;
+    font-weight: 600;
+}
+
+/* Event Title */
+.card .event-title-holder {
+    margin-top: 15px;
+}
+
+.card .event-title-holder h3 {
+    font-weight: 600;
+    font-size: 18px;
+}
+
+/* Event Description */
+.card .event-description-holder {
+    /* hide text if it more than N lines  */
+    overflow: hidden;
+    /* for set '...' in absolute position */
+    position: relative;
+    /* use this value to count block height */
+    line-height: 1em;
+    /* max-height = line-height (1.2) * lines max number (3) */
+    max-height: 6em;
+    /* fix problem when last visible word doesn't adjoin right side  */
+    /*   text-align: justify;   */
+    /* place for '...' */
+    margin-right: -1em;
+    padding-right: 1em;
+}
+
+.card .event-description-holder:before {
+    /* points in the end */
+    content: '...';
+    /* absolute position */
+    position: absolute;
+    /* set position to right bottom corner of block */
+    right: 1%;
+    bottom: 0;
+    font-weight: 400;
+    font-size: 11px;
+    color: #999;
+}
+
+.card .event-description-holder:after {
+    /* points in the end */
+    content: '';
+    /* absolute position */
+    position: absolute;
+    /* set position to right bottom corner of text */
+    right: 0;
+    /* set width and height */
+    width: 1em;
+    height: 1em;
+    margin-top: 0.2em;
+    /* bg color = bg color under block */
+    background: white;
+}
+
+.card .event-description-holder p {
+    font-weight: 400;
+    font-size: 11px;
+    color: #999;
+}
+
+/* Event Tags */
+.card .event-tag-holder {
+    margin-top: 25px;
+    /* hide text if it more than N lines  */
+    overflow: hidden;
+    /* for set '...' in absolute position */
+    position: relative;
+    /* use this value to count block height */
+    line-height: 1em;
+    /* max-height = line-height (1.2) * lines max number (3) */
+    max-height: 1em;
+    /* fix problem when last visible word doesn't adjoin right side  */
+    /*   text-align: justify;   */
+    /* place for '...' */
+    margin-right: -1em;
+    padding-right: 1em;
+}
+
+.card .event-tag-holder:before {
+    /* points in the end */
+    content: '...';
+    /* absolute position */
+    position: absolute;
+    /* set position to right bottom corner of block */
+    right: 0;
+    bottom: 0;
+    font-weight: 400;
+    font-size: 0.8vw;
+    color: #000;
+}
+
+.card .event-tag-holder:after {
+    /* points in the end */
+    content: '';
+    /* absolute position */
+    position: absolute;
+    /* set position to right bottom corner of text */
+    right: 0;
+    /* set width and height */
+    width: 1em;
+    height: 1em;
+    margin-top: 0.2em;
+    /* bg color = bg color under block */
+    background: white;
+}
+
+
+.card .event-tag-holder span {
+    font-weight: 600;
+    font-size: 11px;
+    color: #00cc99;
+    margin-right: 5px;
+}
+
+/* Event Details */
+.card .event-details-holder {
+    margin-top: 25px;
+}
+
+.card .event-details-holder p {
+    font-weight: 400;
+    font-size: 12px;
+    color: #999;
+    margin: 0;
+}
+
+.card .event-details-holder i {
+    font-weight: 400;
+    font-size: 11px;
+    color: #999;
+    line-height: 0.6vw;
+    vertical-align: top;
+}
+
+/* Event Footer */
+.card .event-footer-holder {
+    margin-top: 25px;
+    height: 40px;
+}
+
+.card .event-footer-holder .ribbon {
+    width: 60px;
+    height: 0;
+    background-color: transparent;
+    position: absolute;
+    bottom: 8px;
+    left: 8px;
+    border: solid 10px #FC5B5A;
+    border-right: solid 10px transparent;
+    /*   border-top-left-radius: 5px;
+      border-top-right-radius: 5px; */
+}
+
+.card .event-footer-holder .ribbon.full {
+    width: 62px;
+    border: solid 10px #FC5B5A;
+    border-right: solid 10px transparent;
+}
+
+.card .event-footer-holder .ribbon.full i {
+    color: #D03535;
+    position: absolute;
+    top: -5px;
+    left: -6px;
+    font-size: 11px;
+}
+
+.card .event-footer-holder .ribbon.full span {
+    color: #FFF;
+    position: absolute;
+    top: -8px;
+    left: 9px;
+    font-size: 11px;
+    font-weight: 500;
+}
+
+.card .event-footer-holder .ribbon.open {
+    width: 67px;
+    border: solid 10px #00cc99;
+    border-right: solid 10px transparent;
+}
+
+.card .event-footer-holder .ribbon.open i {
+    color: #005B5F;
+    position: absolute;
+    top: -5px;
+    left: -4px;
+    font-size: 10px;
+}
+
+.card .event-footer-holder .ribbon.open span {
+    color: #FFF;
+    position: absolute;
+    top: -8px;
+    left: 9px;
+    font-size: 11px;
+    font-weight: 500;
+}
+
+.card .event-footer-holder .ribbon.closed {
+    width: 78px;
+    border: solid 10px #ff9900;
+    border-right: solid 10px transparent;
+}
+
+.card .event-footer-holder .ribbon.closed i {
+    color: #C65B01;
+    position: absolute;
+    top: -5px;
+    left: -4px;
+    font-size: 10px;
+}
+
+.card .event-footer-holder .ribbon.closed span {
+    color: #FFF;
+    position: absolute;
+    top: -8px;
+    left: 9px;
+    font-size: 11px;
+    font-weight: 500;
+}
+
+/* Join */
+.card .event-footer-holder .join {
+    background: #00cc99;
+    border-radius: 3px;
+    height: 25px;
+    width: 25px;
+    right: 8px;
+    bottom: 8px;
+    position: absolute;
+}
+
+.card .event-footer-holder .join i {
+    color: #FFF;
+    font-size: 15px;
+    left: 6px;
+    top: 5px;
+    position: absolute;
+}
+
+@media screen and (min-width: 1200px) and (max-width: 1450px) {
+    .card .card-banner .card-banner-img{
+        width: 150%;
+        top: -40%;
+        position: absolute;
+    }
+    .card-wrapper {
+        -ms-flex: 25%; /* IE10 */
+        flex: 25%;
+        max-width: 25%;
+    }
+}
+
+@media screen and (min-width: 830px) and (max-width: 1199px) {
+    .card .card-banner .card-banner-img{
+        width: 150%;
+        top: -40%;
+        position: absolute;
+    }
+    .card-wrapper {
+        -ms-flex: 33%; /* IE10 */
+        flex: 33%;
+        max-width: 33%;
+    }
+}
+
+@media screen and (min-width: 668px) and (max-width: 829px) {
+    .card .card-banner .card-banner-img{
+        width: 150%;
+        top: -10%;
+        position: absolute;
+    }
+    .card-wrapper {
+        -ms-flex: 50%; /* IE10 */
+        flex: 50%;
+        max-width: 50%;
+    }
+}
+
+@media screen and (min-width: 520px) and (max-width: 667px) {
+    .card .card-banner .card-banner-img{
+        width: 200%;
+        top: 0;
+        position: absolute;
+    }
+    .card-wrapper {
+        -ms-flex: 50%; /* IE10 */
+        flex: 50%;
+        max-width: 50%;
+    }
+}
+
+@media screen and (min-width: 300px) and (max-width: 519px) {
+    .card .card-banner .card-banner-img{
+        width: 120%;
+        top: -80%;
+        position: absolute;
+    }
+    .card-wrapper {
+        -ms-flex: 100%; /* IE10 */
+        flex: 100%;
+        max-width: 100%;
+    }
+}
