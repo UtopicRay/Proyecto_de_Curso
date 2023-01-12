@@ -1,4 +1,6 @@
-
+function Cancelar(){
+    window.location.href='http://127.0.0.1:8001/';
+}
 function eliminarInvestigacion(id) {
 
     if (!confirm('Desee eliminar esta investigacion')) {

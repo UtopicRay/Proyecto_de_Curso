@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Cronograma;
 use App\Entity\Investigacion;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
@@ -33,6 +34,7 @@ class CronogramaType extends AbstractType
             ->add('fecha_fin',DateType::class)
             ->add('hora_inic',TimeType::class)
             ->add('hora_final',TimeType::class)
+            ->add('Cancelar',ButtonType::class,['attr'=>['class'=>'btn-primary btn-user btn-block','onClick'=>'Cancelar()']])
             ->add('Aceptar', SubmitType::class);
     }
 

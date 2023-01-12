@@ -35,7 +35,12 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-         - { path: ^(cronograma|api), roles: ROLE_ADMIN }
+         - { path: '^/cronograma', roles: ROLE_ADMIN }
+         - { path: '^/editar_evento', roles: ROLE_ADMIN }
+         - { path: '^/evento_remover', roles: ROLE_ADMIN }
+         - { path: '^/crear_usuarioAd', roles: ROLE_ADMIN }
+         - { path: '^/crear_usuarioJ', roles: ROLE_ADMIN }
+         - { path: '^/evaluar_inve', roles: ROLE_JURADO}
          - { path: ^(?!/(login|crearusuario)), roles: ROLE_USER }
 
 when@test:

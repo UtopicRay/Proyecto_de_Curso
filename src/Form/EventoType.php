@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Evento;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -12,7 +13,6 @@ use Symfony\Component\Form\Extension\Core\Type\TimeType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Time;
-
 class EventoType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -29,6 +29,7 @@ class EventoType extends AbstractType
             ->add('fecha_fin', DateType::class, ['attr' => ['required' => '']])
             ->add('hora_inic', TimeType::class, ['attr' => ['required' => '']])
             ->add('hora_fin', TimeType::class, ['attr' => ['required' => '']])
+            ->add('Cancelar',ButtonType::class,['attr'=>['class'=>'btn-primary btn-user btn-block','onClick'=>'Cancelar()']])
             ->add('Aceptar', SubmitType::class,[
                 'attr'=>['class'=>'btn-primary btn-user btn-block']
             ]);

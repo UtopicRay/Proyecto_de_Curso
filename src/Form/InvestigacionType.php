@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Investigacion;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -28,6 +29,7 @@ class InvestigacionType extends AbstractType
                 'choices'  =>Investigacion::catedras,
             ])
             ->add('descripcion')
+            ->add('Cancelar',ButtonType::class,['attr'=>['class'=>'btn-primary btn-user btn-block','onClick'=>'Cancelar()']])
             ->add('Aceptar',SubmitType::class)
         ;
     }

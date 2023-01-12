@@ -51,7 +51,7 @@ class EventoController extends AbstractController
             $this->em->persist($evento);
             $this->em->flush();
             return $this->redirectToRoute('t_evento');
-        }
+        }   
 
         return $this->renderForm('evento/publicar-evento.html.twig', [
             'controller_name' => 'Publicar Evento',
@@ -90,7 +90,7 @@ class EventoController extends AbstractController
         $pagination = $paginator->paginate(
             $query, /* query NOT result */
             $request->query->getInt('page', 1), /*page number*/
-            8  /*limit per page*/
+            14  /*limit per page*/
         );
 
         for ($i = 0; $i < $pagination->getTotalItemCount(); $i++) {
@@ -182,7 +182,7 @@ class EventoController extends AbstractController
 
 
 
-    #[Route('/evento/remover/{id}', name: 'evento_remover')]
+    #[Route('/evento_remover/{id}', name: 'evento_remover')]
     public function remove($id)
     {
         $app = new EventoService();

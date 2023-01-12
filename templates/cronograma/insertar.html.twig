@@ -44,8 +44,14 @@
                                         {{ form_widget(form.hora_final) }}
                                     </div>
                                 </div>
-                                {{ form_widget(form.Aceptar,{attr:{'class':'btn btn-primary btn-user btn-block'}}) }}
-                                {{ form_end(form) }}
+                                <div class="form-group row">
+                                    <div class="col-sm-6 mb-3 mb-sm-0">
+                                        {{ form_widget(form.Cancelar) }}
+                                    </div>
+                                    <div class="col-sm-6 mb-3 mb-sm-0">
+                                        {{ form_widget(form.Aceptar,{attr:{'class':'btn btn-primary btn-user btn-block'}}) }}
+                                        {{ form_end(form) }}
+                                    </div>
                             </div>
                         </div>
                     </div>
@@ -55,6 +61,7 @@
     </div>
     {% block javascripts %}
         {{ parent() }}
+        <script src="{{ asset('js/scripts.js') }}"></script>
     {% endblock %}
     </body>
 {% endblock %}

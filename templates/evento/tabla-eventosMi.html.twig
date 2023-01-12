@@ -88,10 +88,12 @@
 
         <!-- End of Main Content -->
     </div>
-    <!-- Footer -->
+    <!--paginacion-->
     <div class="navigation">
         {{ knp_pagination_render(eventos ) }}
     </div>
+    <!--end paginacion-->
+    <!-- Footer -->
     {% block footer %}
         {{ parent() }}
     {% endblock %}

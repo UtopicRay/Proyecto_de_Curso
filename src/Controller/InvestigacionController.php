@@ -40,7 +40,7 @@ class InvestigacionController extends AbstractController
         ]);
     }
     #[Route('/Mit_inves', name: 'Mit_inves')]
-    public function Mitablas(): Response
+    public function MisInves(): Response
     {
         $user = $this->getUser()->getUserIdentifier();
         $usu = $this->em->getRepository(Usuario::class)->findOneBy(['email'=>$user]);
@@ -53,7 +53,7 @@ class InvestigacionController extends AbstractController
         ]);
     }
     #[Route('/investigacion/añadirE/{id}', name: 'ana_eventI')]
-    public function AñadirIE($id): Response
+    public function AñadirIEvento($id): Response
     {
         $usurio = $this->getUser()->getUserIdentifier();
         $usu = $this->em->getRepository(Usuario::class)->findOneBy(['email' => $usurio]);

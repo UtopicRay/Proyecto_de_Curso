@@ -44,8 +44,8 @@
                         <ul class="dropdown-menu">
                             <li><a href="{{ path('t_eventoAc') }}" class="nav-menu-item">Eventos en Curso</a></li>
                             <li><a href="{{ path('Mit_event') }}" class="nav-menu-item">Eventos Participados</a></li>
+                            <li><a href="{{ path('t_evento') }}" class="nav-menu-item">Listado de Evento</a></li>
                             {% if is_granted('ROLE_ADMIN') %}
-                                <li><a href="{{ path('t_evento') }}" class="nav-menu-item">Listado de Evento</a></li>
                                 <li><a href="{{ path('public_evento') }}" class="nav-menu-item dropdown-item">Publicar
                                         Evento</a></li>
                             {% endif %}
@@ -65,7 +65,7 @@
                     </div>
                     <div class="dropdown">
                         <a class="  nav-menu-item" href="#" data-toggle="dropdown"
-                           style="padding: 18px;padding-left: 32px;"><i class="fas fa-wrench me-3"></i>Cronogrma <i
+                           style="padding: 18px;padding-left: 32px;"><i class="fas fa-wrench me-3"></i>Cronograma <i
                                     class="icon-arrow text-black" style="padding: 15px"></i></a>
                         <ul class="dropdown-menu">
                             <li><a href="{{ path('t_cronograma') }}" class="nav-menu-item">Cronograma de actividades</a>
